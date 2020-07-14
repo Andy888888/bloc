@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 class BlocProvider<T extends BlocBase> extends StatefulWidget {
   final T bloc;
   final Widget child;
-  
+
   BlocProvider({
     Key key,
     @required this.child,
@@ -21,7 +21,6 @@ class BlocProvider<T extends BlocBase> extends StatefulWidget {
 
   static T of<T extends BlocBase>(BuildContext context) {
     BlocProvider<T> provider =  context.findAncestorWidgetOfExactType();
-
     return provider.bloc;
   }
 }
