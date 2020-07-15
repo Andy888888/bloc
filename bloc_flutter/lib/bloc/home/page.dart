@@ -1,6 +1,6 @@
 import 'package:bloc_flutter/bloc/home/bloc.dart';
 import 'package:flutter/material.dart';
-import '../ybloc/y_bloc_provider.dart';
+import '../ybloc/bloc_widget.dart';
 
 /// @description 待描述
 ///

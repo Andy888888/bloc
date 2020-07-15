@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import '../ybloc/y_base_bloc.dart';
+import '../ybloc/bloc.dart';
 
 /// @description 待描述
 ///
 /// @author 燕文强
 ///
 /// @date 2020/7/15
-class HomeBloc extends YBlocBase {
+class HomeBloc extends Bloc {
   int _count = 0;
   StreamController<int> _controller = StreamController<int>();
 

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// @author 燕文强
 ///
 /// @date 2020/7/15
-mixin View {
+mixin BlocView {
   void toast(
     String msg, {
     int gravity = 1,

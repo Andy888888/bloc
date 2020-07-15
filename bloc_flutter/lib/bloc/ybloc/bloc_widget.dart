@@ -1,9 +1,7 @@
-import 'package:bloc_flutter/bloc/ybloc/view.dart';
-import 'package:bloc_flutter/bloc/ybloc/y_base_bloc.dart';
+import 'package:bloc_flutter/bloc/ybloc/bloc_view.dart';
+import 'package:bloc_flutter/bloc/ybloc/bloc.dart';
+import 'package:bloc_flutter/bloc/ybloc/views.dart';
 import 'package:flutter/material.dart';
-
-import 'package:bloc_flutter/bloc/ybloc/page.dart' as page;
-
 import 'logger.dart';
 
 /// @description 待描述
@@ -11,7 +9,7 @@ import 'logger.dart';
 /// @author 燕文强
 ///
 /// @date 2020/7/14
-abstract class BlocWidget<T extends YBlocBase> extends StatefulWidget {
+abstract class BlocWidget<T extends Bloc> extends StatefulWidget {
   final T bloc;
   final String title;
 
@@ -26,7 +24,7 @@ abstract class BlocWidget<T extends YBlocBase> extends StatefulWidget {
   State<StatefulWidget> createState() => state();
 }
 
-abstract class BlocState<T extends BlocWidget> extends State<T> with View, WidgetsBindingObserver {
+abstract class BlocState<T extends BlocWidget> extends State<T> with BlocView, WidgetsBindingObserver {
   bool _bindingObserver;
 
   @override
@@ -85,7 +83,7 @@ abstract class BlocState<T extends BlocWidget> extends State<T> with View, Widge
 
   @override
   bool finish() {
-    return page.finish(context);
+    return Views.finish(context);
   }
 
   @override
@@ -93,12 +91,12 @@ abstract class BlocState<T extends BlocWidget> extends State<T> with View, Widge
 
   @override
   Future launch(Widget widget, {bool stack = false}) {
-    return page.launch(context, widget, stack: stack);
+    return Views.launch(context, widget, stack: stack);
   }
 
   @override
   Future launchAndCloseSelf(Widget widget, {bool stack = false}) {
-    return page.launchAndCloseSelf(context, widget, stack: stack);
+    return Views.launchAndCloseSelf(context, widget, stack: stack);
   }
 
   @override
@@ -109,7 +107,7 @@ abstract class BlocState<T extends BlocWidget> extends State<T> with View, Widge
       Color textColor = Colors.white,
       double backgroundRadius = 20,
       Border border}) {
-    page.toast(context, msg,
+    Views.toast(context, msg,
         gravity: gravity,
         duration: duration,
         backgroundColor: backgroundColor,
