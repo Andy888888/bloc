@@ -1,46 +1,53 @@
 import 'package:bloc_flutter/bloc/ybloc/bloc.dart';
 import 'package:bloc_flutter/bloc/ybloc/bloc_widget.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
 /// @description 待描述
 ///
 /// @author 燕文强
 ///
 /// @date 2020/7/15
-abstract class APlusProPage<T extends CCC> extends BlocWidget {
-  APlusProPage(String title, Bloc bloc) : super(title, bloc);
-//  APlusProPage(String title, T bloc) : super(title, bloc);
-//
-//  @override
-//  BlocState<BlocWidget<T>> state();
+abstract class APlusBloc extends Bloc {
+  String ccc();
 }
 
-//abstract class BlocState<T extends BlocWidget> extends State<T> with BlocView, WidgetsBindingObserver {
-abstract class APlusState<T extends APlusProPage> extends BlocState {
-
+abstract class APlusProPage<T extends APlusBloc> extends BlocWidget<T> {
+  APlusProPage(String title, T bloc) : super(title, bloc);
 }
 
-class CCC extends Bloc {
-  String ccc() {}
+abstract class APlusState<T extends APlusProPage> extends BlocState<T> {}
+
+// -----------------------------------------------------------------------
+
+class APlusBlocImpl extends APlusBloc {
+  @override
+  String ccc() {
+    // TODO: implement ccc
+    return null;
+  }
 
   @override
   void dispose() {
     // TODO: implement dispose
   }
+
+  String news;
 }
 
-class Ap extends APlusProPage<CCC> {
-  Ap(String title, CCC bloc) : super(title, bloc);
+class AppPageImpl extends APlusProPage<APlusBlocImpl> {
+  AppPageImpl(String title, APlusBlocImpl bloc) : super(title, bloc);
 
   @override
-  BlocState<BlocWidget<CCC>> state() {
+  BlocState<BlocWidget<APlusBlocImpl>> state() {
+    // TODO: implement state
     return null;
   }
 }
 
-class a extends APlusState<Ap>{
+class AppStateImpl extends APlusState<AppPageImpl> {
   @override
   Widget build(BuildContext context) {
-    // TODO: widget.bloc 类型
+    // TODO: implement build
     return null;
   }
 
@@ -54,5 +61,4 @@ class a extends APlusState<Ap>{
     // TODO: implement viewDidLoad
     return null;
   }
-
 }
