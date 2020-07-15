@@ -32,7 +32,7 @@ class MainPage extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed: () {
 //          bloc.plus();
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Scaffold(body: HomePage(null, HomeBloc()))));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Scaffold(body: HomePage('null', HomeBloc()))));
         },
       ),
     );

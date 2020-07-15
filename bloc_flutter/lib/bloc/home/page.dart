@@ -1,4 +1,6 @@
 import 'package:bloc_flutter/bloc/home/bloc.dart';
+import 'package:bloc_flutter/bloc/ybloc/alert_dialog_widget.dart';
+import 'package:bloc_flutter/bloc/ybloc/logger.dart';
 import 'package:flutter/material.dart';
 import '../ybloc/bloc_widget.dart';
 
@@ -33,7 +35,18 @@ class _HomeState extends BlocState<HomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          widget.bloc.plus();
+//          widget.bloc.plus();
+          showMsg(
+              content: '你好是但是弹道式导弹',
+              rightClick: () {
+                alertDialog.update(AlertBuilder.create(
+                    context: context,
+                    content: '再不打招呼，就当不知道',
+                    rightClick: () {
+                      Navigator.pop(alertDialog.context);
+                    }));
+              },
+              canUpdate: true);
         },
       ),
     );

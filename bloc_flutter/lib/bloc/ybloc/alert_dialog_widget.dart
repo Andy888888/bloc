@@ -49,15 +49,19 @@ class AlertDialogWidget {
   // final Function rightButtonResponse;
   // 左按钮响应
   final Function leftButtonResponse;
+  final Function leftClick;
 
   // 右按钮响应
   final Function rightButtonResponse;
+  final Function rightClick;
 
   // 障碍可解雇的
   final bool barrierDismissible;
 
   // 强制，永远不可以取消
   final bool isCompulsory;
+
+  final bool canUpdate;
 
   StreamController<AlertBuilder> _streamController = StreamController<AlertBuilder>();
 
@@ -82,10 +86,12 @@ class AlertDialogWidget {
     this.leftButtonText,
     this.rightButtonText,
     this.leftButtonResponse,
+    this.leftClick,
     this.rightButtonResponse,
+    this.rightClick,
     this.barrierDismissible = true,
     this.isCompulsory = false,
-    // this.onTapInside = true,
+    this.canUpdate = false,
   }) {
     showGeneralDialog(
       context: context,
@@ -97,69 +103,81 @@ class AlertDialogWidget {
         Animation animation,
         Animation secondaryAnimation,
       ) {
+        AlertBuilder alertBuilder = AlertBuilder(
+          context,
+          title,
+          content,
+          leftButtonText,
+          rightButtonText,
+          leftButtonResponse,
+          leftClick,
+          rightButtonResponse,
+          rightClick,
+          barrierDismissible,
+          isCompulsory,
+        );
+
+        if (!canUpdate) {
+          AsyncSnapshot<AlertBuilder> asyncSnapshot = AsyncSnapshot.withData(ConnectionState.done, alertBuilder);
+          return view(asyncSnapshot);
+        }
+
+        stream();
         return StreamBuilder(
           stream: _streamController.stream,
-          initialData: AlertBuilder(
-            context,
-            title,
-            content,
-            leftButtonText,
-            rightButtonText,
-            leftButtonResponse,
-            rightButtonResponse,
-            barrierDismissible,
-            isCompulsory,
-          ),
+          initialData: alertBuilder,
           builder: (context, AsyncSnapshot<AlertBuilder> snapshot) {
-            return WillPopScope(
-              onWillPop: () async {
-                return false;
-              },
-              child: GestureDetector(
-                child: Material(
-                  color: Colors.black.withOpacity(0.5),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                              10 * ratio(context),
-                            ),
-                            child: Container(
-                              width: screenWidth(context) - 24 * 2 * ratio(context),
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.only(
-                                left: 24 * ratio(context),
-                                right: 24 * ratio(context),
-                                bottom: 24 * ratio(context),
-                              ),
-                              color: Colors.white,
-                              child: childWidget(snapshot),
-                            ),
-                          ),
-                          onTap: () {
-                            //  if(onTapInside){
-                            //    Navigator.of(context).pop();
-                            //  }
-                          })
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  if (snapshot.data.barrierDismissible) {
-                    if (snapshot.data.isCompulsory == false) Navigator.of(context).pop();
-                  }
-                },
-              ),
-            );
+            return view(snapshot);
           },
         );
       },
     );
+  }
 
-//    dispose();
+  Widget view(AsyncSnapshot<AlertBuilder> snapshot) {
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: GestureDetector(
+        child: Material(
+          color: Colors.black.withOpacity(0.5),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              GestureDetector(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                      10 * ratio(context),
+                    ),
+                    child: Container(
+                      width: screenWidth(context) - 24 * 2 * ratio(context),
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.only(
+                        left: 24 * ratio(context),
+                        right: 24 * ratio(context),
+                        bottom: 24 * ratio(context),
+                      ),
+                      color: Colors.white,
+                      child: childWidget(snapshot),
+                    ),
+                  ),
+                  onTap: () {
+                    //  if(onTapInside){
+                    //    Navigator.of(context).pop();
+                    //  }
+                  })
+            ],
+          ),
+        ),
+        onTap: () {
+          if (snapshot.data.barrierDismissible) {
+            if (snapshot.data.isCompulsory == false) Navigator.of(context).pop();
+          }
+        },
+      ),
+    );
   }
 
   childWidget(AsyncSnapshot<AlertBuilder> snapshot) {
@@ -359,6 +377,11 @@ class AlertDialogWidget {
         ),
       ),
       onTap: () {
+        if (snapshot.data.leftClick != null) {
+          snapshot.data.leftClick();
+          return;
+        }
+
         if (snapshot.data.isCompulsory == false) Navigator.of(snapshot.data.context).pop();
         if (snapshot.data.leftButtonResponse != null) {
           snapshot.data.leftButtonResponse();
@@ -393,6 +416,11 @@ class AlertDialogWidget {
         ),
       ),
       onTap: () {
+        if (snapshot.data.rightClick != null) {
+          snapshot.data.rightClick();
+          return;
+        }
+
         if (snapshot.data.isCompulsory == false) Navigator.of(snapshot.data.context).pop();
         if (snapshot.data.rightButtonResponse != null) {
           snapshot.data.rightButtonResponse();
@@ -440,6 +468,11 @@ class AlertDialogWidget {
             ),
           ),
           onTap: () {
+            if (snapshot.data.leftClick != null) {
+              snapshot.data.leftClick();
+              return;
+            }
+
             if (snapshot.data.isCompulsory == false) Navigator.of(snapshot.data.context).pop();
             if (snapshot.data.leftButtonResponse != null) {
               snapshot.data.leftButtonResponse();
@@ -471,6 +504,10 @@ class AlertDialogWidget {
             ),
           ),
           onTap: () {
+            if (snapshot.data.rightClick != null) {
+              snapshot.data.rightClick();
+              return;
+            }
             if (snapshot.data.isCompulsory == false) Navigator.of(snapshot.data.context).pop();
             if (snapshot.data.rightButtonResponse != null) {
               snapshot.data.rightButtonResponse();
@@ -503,9 +540,11 @@ class AlertBuilder {
   // final Function rightButtonResponse;
   // 左按钮响应
   Function leftButtonResponse;
+  Function leftClick;
 
   // 右按钮响应
   Function rightButtonResponse;
+  Function rightClick;
 
   // 障碍可解雇的
   bool barrierDismissible;
@@ -520,10 +559,19 @@ class AlertBuilder {
     this.leftButtonText,
     this.rightButtonText,
     this.leftButtonResponse,
+    this.leftClick,
     this.rightButtonResponse,
+    this.rightClick,
     this.barrierDismissible,
     this.isCompulsory,
-  });
+  }){
+    if (leftClick != null) {
+      leftButtonResponse = leftClick;
+    }
+    if (rightClick != null) {
+      rightButtonResponse = rightClick;
+    }
+  }
 
   AlertBuilder(
     this.context,
@@ -532,7 +580,9 @@ class AlertBuilder {
     this.leftButtonText,
     this.rightButtonText,
     this.leftButtonResponse,
+    this.leftClick,
     this.rightButtonResponse,
+    this.rightClick,
     this.barrierDismissible,
     this.isCompulsory,
   );
