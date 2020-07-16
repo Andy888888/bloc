@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// @description 待描述
+/// @description BlocView基类
 ///
 /// @author 燕文强
 ///

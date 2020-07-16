@@ -1,6 +1,5 @@
-import 'package:flutter/widgets.dart';
 
-/// @description 待描述
+/// @description BlocBase
 ///
 /// @author 燕文强
 ///

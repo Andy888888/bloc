@@ -1,6 +1,5 @@
 import 'dart:async';
-import 'package:bloc_flutter/bloc/bloc/base_bloc.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:bloc_flutter/architecture/bloc_provider/base_bloc.dart';
 
 /// @description 待描述
 ///
@@ -21,11 +20,5 @@ class MainBloc implements BlocBase {
 
   void dispose() {
     _controller.close();
-  }
-
-  @override
-  Widget networkOffline() {
-    // TODO: implement networkOffline
-    return null;
   }
 }

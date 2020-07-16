@@ -1,4 +1,4 @@
-/// @description 待描述
+/// @description Bloc基类
 ///
 /// @author 燕文强
 ///

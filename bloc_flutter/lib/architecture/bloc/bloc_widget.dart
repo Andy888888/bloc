@@ -1,11 +1,10 @@
-import 'package:bloc_flutter/bloc/ybloc/bloc_view.dart';
-import 'package:bloc_flutter/bloc/ybloc/bloc.dart';
-import 'package:bloc_flutter/bloc/ybloc/views.dart';
+import 'package:bloc_flutter/architecture/bloc/views.dart';
+import 'package:bloc_flutter/architecture/utils/logger.dart';
 import 'package:flutter/material.dart';
-import 'alert_dialog_widget.dart';
-import 'logger.dart';
+import 'bloc.dart';
+import 'bloc_view.dart';
 
-/// @description 待描述
+/// @description BlocWidget基类
 ///
 /// @author 燕文强
 ///
@@ -27,12 +26,10 @@ abstract class BlocWidget<T extends Bloc> extends StatefulWidget {
 
 abstract class BlocState<T extends BlocWidget> extends State<T> with BlocView, WidgetsBindingObserver {
   bool _bindingObserver;
-  AlertDialogWidget alertDialog;
 
   @override
   void dispose() {
     widget.bloc.dispose();
-    alertDialog.dispose();
     super.dispose();
     if (_bindingObserver) {
       logFormat('remove WidgetsBindingObserver');
@@ -117,40 +114,5 @@ abstract class BlocState<T extends BlocWidget> extends State<T> with BlocView, W
         textColor: textColor,
         backgroundRadius: backgroundRadius,
         border: border);
-  }
-
-  void showMsg({
-    String content,
-    String title,
-    String leftButtonText,
-    String rightButtonText,
-    Function leftButtonResponse,
-    Function leftClick,
-    Function rightButtonResponse,
-    Function rightClick,
-    bool barrierDismissible = true,
-    bool isCompulsory = false,
-    bool canUpdate = false,
-  }) {
-    if (leftClick != null) {
-      leftButtonResponse = leftClick;
-    }
-    if (rightClick != null) {
-      rightButtonResponse = rightClick;
-    }
-    alertDialog = AlertDialogWidget(
-      context: context,
-      title: title,
-      content: content,
-      leftButtonText: leftButtonText,
-      rightButtonText: rightButtonText,
-      leftButtonResponse: leftButtonResponse,
-      leftClick: leftClick,
-      rightButtonResponse: rightButtonResponse,
-      rightClick: rightClick,
-      barrierDismissible: barrierDismissible,
-      isCompulsory: isCompulsory,
-      canUpdate: canUpdate,
-    );
   }
 }

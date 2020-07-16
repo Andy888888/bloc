@@ -1,16 +1,15 @@
-import 'package:bloc_flutter/bloc/bloc/bloc_provider.dart';
-import 'package:bloc_flutter/bloc/home/bloc.dart';
-import 'package:bloc_flutter/bloc/home/page.dart';
+import 'package:bloc_flutter/architecture/bloc_provider/bloc_provider.dart';
+import 'package:bloc_flutter/page/property/bloc.dart';
+import 'package:bloc_flutter/page/property/page.dart';
 import 'package:flutter/material.dart';
 
 import 'bloc.dart';
 
-/// @description 待描述
+/// @description Provider方式的页面
 ///
 /// @author 燕文强
 ///
 /// @date 2020/7/14
-// ignore: must_be_immutable
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,8 +30,8 @@ class MainPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-//          bloc.plus();
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Scaffold(body: HomePage('null', HomeBloc()))));
+          bloc.plus();
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Scaffold(body: PropertyPage('房源列表', PropertyBloc()))));
         },
       ),
     );
