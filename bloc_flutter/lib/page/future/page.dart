@@ -24,7 +24,7 @@ class _FutureState extends State<FuturePage> {
   }
 
   Future<String> fetchData() async {
-    var httpClient = new HttpClient();
+    var httpClient = HttpClient();
     var uri = Uri.parse('http://www.baidu.com');
     var request = await httpClient.getUrl(uri);
     var response = await request.close();

@@ -8,7 +8,7 @@ import 'package:bloc_flutter/architecture/bloc_provider/base_bloc.dart';
 /// @date 2020/7/14
 class MainBloc implements BlocBase {
   int _count = 0;
-  StreamController<int> _controller = new StreamController<int>();
+  StreamController<int> _controller = StreamController<int>();
 
   Stream<int> get stream => _controller.stream;
 

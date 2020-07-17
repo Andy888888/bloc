@@ -5,12 +5,12 @@
 /// @date 2020/7/16
 class BlocBo<T> {
   T data;
-  UIState uiState;
+  UIStatus uiStatus;
 
-  BlocBo({this.data, this.uiState = UIState.done});
+  BlocBo({this.data, this.uiStatus = UIStatus.done});
 }
 
-enum UIState {
+enum UIStatus {
   networkOffline,
   networkPoor,
   networkError,

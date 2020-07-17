@@ -44,16 +44,20 @@ class _PropertyState extends APlusState<PropertyPage> {
         child: Icon(Icons.add),
         onPressed: () {
           dialog(
-              content: '这是一个弹框消息',
-              rightClick: () {
-                alertDialog.update(AlertBuilder.create(
-                    context: context,
-                    content: '再不打招呼，就当不知道',
-                    rightClick: () {
-                      Navigator.pop(alertDialog.context);
-                    }));
-              },
-              canUpdate: true);
+            content: '这是一个弹框消息',
+            rightClick: () {
+              alertDialog.update(
+                AlertBuilder.create(
+                  context: context,
+                  content: '再不打招呼，就当不知道',
+                  rightClick: () {
+                    Navigator.pop(alertDialog.context);
+                  },
+                ),
+              );
+            },
+            canUpdate: true,
+          );
         },
       ),
     );
