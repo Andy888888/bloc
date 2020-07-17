@@ -35,6 +35,7 @@ class _PropertyState extends APlusState<PropertyPage> {
           stream: widget.bloc.controller.stream,
           initialData: BlocBo<String>(data: '您要的房源正在赶来的路上'),
           builder: (BuildContext context, AsyncSnapshot<BlocBo<String>> snapshot) {
+            log('状态：${snapshot.connectionState}');
             return Text(snapshot.data.data);
           },
         ),
