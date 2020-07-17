@@ -1,4 +1,7 @@
+import 'package:bloc_flutter/architecture/bloc/state_view.dart';
 import 'package:bloc_flutter/architecture/bloc/views.dart';
+import 'package:bloc_flutter/architecture/stream/state_bo.dart';
+import 'package:bloc_flutter/architecture/stream/state_stream_builder.dart';
 import 'package:bloc_flutter/architecture/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'bloc.dart';
@@ -24,7 +27,7 @@ abstract class BlocWidget<T extends Bloc> extends StatefulWidget {
   State<StatefulWidget> createState() => state();
 }
 
-abstract class BlocState<T extends BlocWidget> extends State<T> with BlocView, WidgetsBindingObserver {
+abstract class BlocState<T extends BlocWidget> extends State<T> with BlocView, WidgetsBindingObserver, StateView {
   bool _bindingObserver;
 
   @override
@@ -57,6 +60,22 @@ abstract class BlocState<T extends BlocWidget> extends State<T> with BlocView, W
   viewDidLoad(callback);
 
   void prepare();
+
+  StreamBuilder<StateBo<M>> streamBuilder<M>({
+    Key key,
+    StateBo<M> initialData,
+    Stream<StateBo<M>> stream,
+    @required Function(M data) completedView,
+  }) {
+    assert(completedView != null, 'completedView must not is null !');
+    return StateStreamBuilder.create(
+      key: key,
+      initialData: initialData,
+      stream: stream,
+      stateView: this,
+      completedView: completedView,
+    );
+  }
 
   @override
   void didChangeAccessibilityFeatures() {}

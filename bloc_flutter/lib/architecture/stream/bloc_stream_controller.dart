@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'package:bloc_flutter/architecture/stream/bloc_bo.dart';
+import 'package:bloc_flutter/architecture/stream/state_bo.dart';
 
 /// @description 待描述
 ///
 /// @author 燕文强
 ///
 /// @date 2020/7/16
-class BlocStreamController<T extends BlocBo> {
+class BlocStreamController<T extends StateBo> {
   StreamController<T> controller;
 
   BlocStreamController() {

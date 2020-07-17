@@ -1,6 +1,7 @@
 import 'package:bloc_flutter/app_base/apluspro_page.dart';
 import 'package:bloc_flutter/architecture/bloc/bloc_widget.dart';
-import 'package:bloc_flutter/architecture/stream/bloc_bo.dart';
+import 'package:bloc_flutter/architecture/stream/state_bo.dart';
+import 'package:bloc_flutter/architecture/stream/state_stream_builder.dart';
 import 'package:bloc_flutter/architecture/utils/logger.dart';
 import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
 import 'package:flutter/material.dart';
@@ -31,14 +32,21 @@ class _PropertyState extends APlusState<PropertyPage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: StreamBuilder<BlocBo<String>>(
+        child: streamBuilder<String>(
+          initialData: StateBo<String>(data: '您要的房源正在赶来的路上'),
           stream: widget.bloc.controller.stream,
-          initialData: BlocBo<String>(data: '您要的房源正在赶来的路上'),
-          builder: (BuildContext context, AsyncSnapshot<BlocBo<String>> snapshot) {
-            log('状态：${snapshot.connectionState}');
-            return Text(snapshot.data.data);
+          completedView: (data) {
+            return Text(data);
           },
         ),
+//        child: StreamBuilder<StateBo<String>>(
+//          stream: widget.bloc.controller.stream,
+//          initialData: StateBo<String>(data: '您要的房源正在赶来的路上'),
+//          builder: (BuildContext context, AsyncSnapshot<StateBo<String>> snapshot) {
+//            log('状态：${snapshot.connectionState}');
+//            return Text(snapshot.data.data);
+//          },
+//        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -69,5 +77,34 @@ class _PropertyState extends APlusState<PropertyPage> {
   @override
   viewDidLoad(callback) {
     widget.bloc.done();
+  }
+
+  @override
+  Widget errorView() {
+    // TODO: implement errorView
+    return null;
+  }
+
+  @override
+  Widget loadingView() {
+    return Text('加载中');
+  }
+
+  @override
+  Widget networkPoorView() {
+    // TODO: implement networkPoorView
+    return null;
+  }
+
+  @override
+  Widget noDataView() {
+    // TODO: implement noDataView
+    return null;
+  }
+
+  @override
+  Widget noNetworkView() {
+    // TODO: implement noNetworkView
+    return null;
   }
 }
