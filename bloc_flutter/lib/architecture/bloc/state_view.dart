@@ -6,15 +6,18 @@ import 'package:flutter/material.dart';
 ///
 /// @date 2020/7/17
 mixin StateView {
+  /// 无网络状态视图
   Widget noNetworkView();
 
+  /// 网络差状态视图
   Widget networkPoorView();
 
+  /// 加载状态视图
   Widget loadingView();
 
+  /// 错误状态视图
   Widget errorView();
 
+  /// 无数据状态视图
   Widget noDataView();
-
-//  Widget completedView(dynamic data);
 }
