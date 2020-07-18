@@ -80,8 +80,7 @@ class _PropertyState extends APlusState<PropertyPage> {
 
   @override
   Widget errorView() {
-    // TODO: implement errorView
-    return null;
+    return Text('哎呀，出错了');
   }
 
   @override
@@ -96,13 +95,11 @@ class _PropertyState extends APlusState<PropertyPage> {
 
   @override
   Widget noDataView() {
-    // TODO: implement noDataView
-    return null;
+    return Text('无数据');
   }
 
   @override
   Widget noNetworkView() {
-    // TODO: implement noNetworkView
-    return null;
+    return Text('无网络');
   }
 }

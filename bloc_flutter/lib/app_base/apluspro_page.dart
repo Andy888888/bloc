@@ -16,6 +16,7 @@ abstract class APlusProPage<T extends APlusBloc> extends BlocWidget<T> {
   APlusProPage(String title, T bloc) : super(title, bloc);
 }
 
+/// todo: 应该把默认的StateView在这里实现
 abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
   AlertDialogWidget alertDialog;
 
