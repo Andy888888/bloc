@@ -112,7 +112,18 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
 
   @override
   Widget noNetworkView() {
-    return Text('无网络');
+    return GestureDetector(
+      child: SafeArea(
+        child: Container(
+          height: Screen.height(context),
+          width: Screen.width(context),
+          color: Colors.transparent,
+          padding: EdgeInsets.only(left: 100, right: 100),
+          child: Image.asset('images/net_exception_state.png'),
+        ),
+      ),
+      onTap: () => retry(),
+    );
   }
 
   @override

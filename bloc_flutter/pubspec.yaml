@@ -47,6 +47,7 @@ flutter:
     - images/network_fail_state.png
     - images/no_data_state.png
     - images/loading_state.gif
+    - images/net_exception_state.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
