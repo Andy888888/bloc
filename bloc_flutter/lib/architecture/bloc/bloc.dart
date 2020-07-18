@@ -4,5 +4,6 @@
 ///
 /// @date 2020/7/14
 abstract class Bloc {
+  void retry();
   void dispose();
 }

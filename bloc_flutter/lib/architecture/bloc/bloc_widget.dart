@@ -40,6 +40,10 @@ abstract class BlocState<T extends BlocWidget> extends State<T> with BlocView, W
     }
   }
 
+  void retry() {
+    widget.bloc.retry();
+  }
+
   @override
   void initState() {
     super.initState();

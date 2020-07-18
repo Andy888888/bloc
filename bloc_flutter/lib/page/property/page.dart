@@ -80,7 +80,10 @@ class _PropertyState extends APlusState<PropertyPage> {
 
   @override
   Widget errorView() {
-    return Text('哎呀，出错了');
+    return GestureDetector(
+      child: Text('哎呀，出错了'),
+      onTap: () => retry(),
+    );
   }
 
   @override
@@ -90,7 +93,10 @@ class _PropertyState extends APlusState<PropertyPage> {
 
   @override
   Widget networkPoorView() {
-    return Text('网络差');
+    return GestureDetector(
+      child: Text('网络差'),
+      onTap: () => retry(),
+    );
   }
 
   @override
