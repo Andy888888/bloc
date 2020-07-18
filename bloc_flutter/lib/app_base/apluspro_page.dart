@@ -1,5 +1,6 @@
 import 'package:bloc_flutter/architecture/bloc/bloc.dart';
 import 'package:bloc_flutter/architecture/bloc/bloc_widget.dart';
+import 'package:bloc_flutter/architecture/common/screen.dart';
 import 'package:bloc_flutter/architecture/utils/logger.dart';
 import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +78,15 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
 
   @override
   Widget loadingView() {
-    return Text('加载中');
+    return SafeArea(
+      child: Container(
+        height: Screen.height(context),
+        width: Screen.width(context),
+        color: Colors.transparent,
+        padding: EdgeInsets.only(left: 100, right: 100),
+        child: Image.asset('images/loading_state.gif'),
+      ),
+    );
   }
 
   @override
@@ -90,11 +99,35 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
 
   @override
   Widget noDataView() {
-    return Text('无数据');
+    return SafeArea(
+      child: Container(
+        height: Screen.height(context),
+        width: Screen.width(context),
+        color: Colors.transparent,
+        padding: EdgeInsets.only(left: 100, right: 100),
+        child: Image.asset('images/no_data_state.png'),
+      ),
+    );
   }
 
   @override
   Widget noNetworkView() {
     return Text('无网络');
+  }
+
+  @override
+  Widget networkFailView() {
+    return GestureDetector(
+      child: SafeArea(
+        child: Container(
+          height: Screen.height(context),
+          width: Screen.width(context),
+          color: Colors.transparent,
+          padding: EdgeInsets.only(left: 100, right: 100),
+          child: Image.asset('images/network_fail_state.png'),
+        ),
+      ),
+      onTap: () => retry(),
+    );
   }
 }

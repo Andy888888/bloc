@@ -25,6 +25,5 @@ class BlocStreamController<T extends StateBo> {
 
   close() {
     controller.close();
-    controller = null;
   }
 }

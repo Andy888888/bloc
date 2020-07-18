@@ -20,7 +20,7 @@ class PropertyBloc extends APlusBloc {
   @override
   void requestProperties() {
     Future.delayed(Duration(seconds: 2), () {
-      controller.add(StateBo.networkPoor());
+      controller.add(StateBo.networkFail());
     });
   }
 
@@ -28,7 +28,8 @@ class PropertyBloc extends APlusBloc {
   void retry() {
     logFormat('重试');
     Future.delayed(Duration(seconds: 1), () {
-      controller.add(StateBo<String>('获取到120条房源'));
+//      controller.add(StateBo<String>('获取到120条房源'));
+      controller.add(StateBo.noData());
     });
   }
 }

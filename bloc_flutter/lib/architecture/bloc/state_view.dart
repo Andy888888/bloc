@@ -12,6 +12,9 @@ mixin StateView {
   /// 网络差状态视图
   Widget networkPoorView();
 
+  /// 获取数据失败（超时、500错误等）
+  Widget networkFailView();
+
   /// 加载状态视图
   Widget loadingView();
 

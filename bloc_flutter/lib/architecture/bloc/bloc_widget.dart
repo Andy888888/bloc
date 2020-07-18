@@ -1,5 +1,5 @@
 import 'package:bloc_flutter/architecture/bloc/state_view.dart';
-import 'package:bloc_flutter/architecture/bloc/views.dart';
+import 'package:bloc_flutter/architecture/common/views.dart';
 import 'package:bloc_flutter/architecture/stream/state_bo.dart';
 import 'package:bloc_flutter/architecture/stream/state_stream_builder.dart';
 import 'package:bloc_flutter/architecture/utils/logger.dart';

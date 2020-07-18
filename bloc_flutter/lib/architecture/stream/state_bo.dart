@@ -29,6 +29,10 @@ class StateBo<T> {
   StateBo.noData() {
     this.uiState = UIState.noData;
   }
+
+  StateBo.networkFail() {
+    this.uiState = UIState.networkFailView;
+  }
 }
 
 enum UIState {
@@ -37,6 +41,9 @@ enum UIState {
 
   /// 网络差
   networkPoor,
+
+  /// 获取数据失败（超时、500错误等）
+  networkFailView,
 
   /// 加载中
   loading,

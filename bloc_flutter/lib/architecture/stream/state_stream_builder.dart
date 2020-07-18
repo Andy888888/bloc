@@ -33,6 +33,9 @@ class StateStreamBuilder {
         if (UIState.loading == uiState) {
           return stateView.loadingView();
         }
+        if (UIState.networkFailView == uiState) {
+          return stateView.networkFailView();
+        }
         if (UIState.noNetwork == uiState) {
           return stateView.noNetworkView();
         }
