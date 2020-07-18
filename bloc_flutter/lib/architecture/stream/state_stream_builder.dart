@@ -20,7 +20,7 @@ class StateStreamBuilder {
     assert(completedView != null, 'completedView must not is null !');
     return StreamBuilder<StateBo<T>>(
       key: key,
-      initialData: initialData == null ? StateBo.networkPoor() : initialData,
+      initialData: initialData == null ? StateBo.loading() : initialData,
       stream: stream,
       builder: (context, asyncSnapshot) {
         if (asyncSnapshot.data == null) {
