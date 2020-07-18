@@ -8,7 +8,27 @@ class StateBo<T> {
   UIState uiState;
 
   /// 默认完成状态
-  StateBo({this.data, this.uiState = UIState.completed});
+  StateBo(this.data, {this.uiState = UIState.completed});
+
+  StateBo.loading() {
+    this.uiState = UIState.loading;
+  }
+
+  StateBo.noNetwork() {
+    this.uiState = UIState.noNetwork;
+  }
+
+  StateBo.networkPoor() {
+    this.uiState = UIState.networkPoor;
+  }
+
+  StateBo.error() {
+    this.uiState = UIState.error;
+  }
+
+  StateBo.noData() {
+    this.uiState = UIState.noData;
+  }
 }
 
 enum UIState {

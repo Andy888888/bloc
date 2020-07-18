@@ -33,7 +33,6 @@ class _PropertyState extends APlusState<PropertyPage> {
       ),
       body: Center(
         child: streamBuilder<String>(
-          initialData: StateBo<String>(data: '您要的房源正在赶来的路上'),
           stream: widget.bloc.controller.stream,
           completedView: (data) {
             return Text(data);
@@ -92,8 +91,7 @@ class _PropertyState extends APlusState<PropertyPage> {
 
   @override
   Widget networkPoorView() {
-    // TODO: implement networkPoorView
-    return null;
+    return Text('网络差');
   }
 
   @override

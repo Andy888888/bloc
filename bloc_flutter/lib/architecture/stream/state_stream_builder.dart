@@ -20,26 +20,29 @@ class StateStreamBuilder {
     assert(completedView != null, 'completedView must not is null !');
     return StreamBuilder<StateBo<T>>(
       key: key,
-      initialData: initialData,
+      initialData: initialData == null ? StateBo.networkPoor() : initialData,
       stream: stream,
       builder: (context, asyncSnapshot) {
-        UIState uiStatus = asyncSnapshot.data.uiState;
-        if (UIState.completed == uiStatus) {
+        if (asyncSnapshot.data == null) {
+          int stop = 0;
+        }
+        UIState uiState = asyncSnapshot.data.uiState;
+        if (UIState.completed == uiState) {
           return completedView(asyncSnapshot.data.data);
         }
-        if (UIState.noData == uiStatus) {
+        if (UIState.noData == uiState) {
           return stateView.noDataView();
         }
-        if (UIState.loading == uiStatus) {
+        if (UIState.loading == uiState) {
           return stateView.loadingView();
         }
-        if (UIState.noNetwork == uiStatus) {
+        if (UIState.noNetwork == uiState) {
           return stateView.noNetworkView();
         }
-        if (UIState.networkPoor == uiStatus) {
+        if (UIState.networkPoor == uiState) {
           return stateView.networkPoorView();
         }
-        if (UIState.error == uiStatus) {
+        if (UIState.error == uiState) {
           return stateView.errorView();
         }
         return completedView(asyncSnapshot.data.data);

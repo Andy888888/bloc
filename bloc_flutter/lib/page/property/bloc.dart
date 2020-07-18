@@ -18,9 +18,9 @@ class PropertyBloc extends APlusBloc {
 
   @override
   void done() {
+//    controller.add(StateBo<String>('正在疯狂加载...', uiState: UIState.loading));
     Future.delayed(Duration(seconds: 2), () {
-//      controller.add(StateBo<String>(data: '获取到120条房源',uiState: UIState.loading));
-      controller.add(StateBo<String>(data: '获取到120条房源'));
+      controller.add(StateBo<String>('获取到120条房源'));
     });
   }
 }
