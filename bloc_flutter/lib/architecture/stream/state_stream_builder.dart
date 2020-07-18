@@ -23,9 +23,6 @@ class StateStreamBuilder {
       initialData: initialData == null ? StateBo.loading() : initialData,
       stream: stream,
       builder: (context, asyncSnapshot) {
-        if (asyncSnapshot.data == null) {
-          int stop = 0;
-        }
         UIState uiState = asyncSnapshot.data.uiState;
         if (UIState.completed == uiState) {
           return completedView(asyncSnapshot.data.data);
