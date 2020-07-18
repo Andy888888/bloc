@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'state_bo.dart';
 
-/// @description 待描述
+/// @description StateStreamBuilder
 ///
 /// @author 燕文强
 ///

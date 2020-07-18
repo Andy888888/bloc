@@ -1,4 +1,4 @@
-/// @description 待描述
+/// @description 具有状态的数据模型
 ///
 /// @author 燕文强
 ///

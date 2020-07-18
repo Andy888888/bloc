@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc_flutter/architecture/stream/state_bo.dart';
 
-/// @description 待描述
+/// @description BlocStreamController
 ///
 /// @author 燕文强
 ///

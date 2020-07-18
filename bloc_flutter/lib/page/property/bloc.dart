@@ -18,8 +18,7 @@ class PropertyBloc extends APlusBloc {
   }
 
   @override
-  void done() {
-//    controller.add(StateBo<String>('正在疯狂加载...', uiState: UIState.loading));
+  void requestProperties() {
     Future.delayed(Duration(seconds: 2), () {
       controller.add(StateBo.networkPoor());
     });
@@ -27,10 +26,6 @@ class PropertyBloc extends APlusBloc {
 
   @override
   void retry() {
-    requestProperty();
-  }
-
-  void requestProperty() {
     logFormat('重试');
     Future.delayed(Duration(seconds: 1), () {
       controller.add(StateBo<String>('获取到120条房源'));

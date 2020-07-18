@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc_flutter/architecture/bloc_provider/base_bloc.dart';
 
-/// @description 待描述
+/// @description MainBloc
 ///
 /// @author 燕文强
 ///

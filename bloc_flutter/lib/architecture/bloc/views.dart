@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
-/// @description 待描述
+/// @description 视图界面常用方法
 ///
 /// @author 燕文强
 ///

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// @description 待描述
+/// @description StateView 以状态为维度的视图
 ///
 /// @author 燕文强
 ///

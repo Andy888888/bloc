@@ -1,7 +1,5 @@
 import 'package:bloc_flutter/app_base/apluspro_page.dart';
 import 'package:bloc_flutter/architecture/bloc/bloc_widget.dart';
-import 'package:bloc_flutter/architecture/stream/state_bo.dart';
-import 'package:bloc_flutter/architecture/stream/state_stream_builder.dart';
 import 'package:bloc_flutter/architecture/utils/logger.dart';
 import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
 import 'package:flutter/material.dart';
@@ -75,37 +73,6 @@ class _PropertyState extends APlusState<PropertyPage> {
 
   @override
   viewDidLoad(callback) {
-    widget.bloc.done();
-  }
-
-  @override
-  Widget errorView() {
-    return GestureDetector(
-      child: Text('哎呀，出错了'),
-      onTap: () => retry(),
-    );
-  }
-
-  @override
-  Widget loadingView() {
-    return Text('加载中');
-  }
-
-  @override
-  Widget networkPoorView() {
-    return GestureDetector(
-      child: Text('网络差'),
-      onTap: () => retry(),
-    );
-  }
-
-  @override
-  Widget noDataView() {
-    return Text('无数据');
-  }
-
-  @override
-  Widget noNetworkView() {
-    return Text('无网络');
+    widget.bloc.requestProperties();
   }
 }

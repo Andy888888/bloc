@@ -2,6 +2,7 @@ import 'package:bloc_flutter/architecture/bloc/bloc.dart';
 import 'package:bloc_flutter/architecture/bloc/bloc_widget.dart';
 import 'package:bloc_flutter/architecture/utils/logger.dart';
 import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
+import 'package:flutter/material.dart';
 
 /// @description 应用层页面基类
 ///
@@ -9,7 +10,7 @@ import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
 ///
 /// @date 2020/7/15
 abstract class APlusBloc extends Bloc {
-  void done();
+  void requestProperties();
 }
 
 abstract class APlusProPage<T extends APlusBloc> extends BlocWidget<T> {
@@ -64,5 +65,36 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
       isCompulsory: isCompulsory,
       canUpdate: canUpdate,
     );
+  }
+
+  @override
+  Widget errorView() {
+    return GestureDetector(
+      child: Text('哎呀，出错了'),
+      onTap: () => retry(),
+    );
+  }
+
+  @override
+  Widget loadingView() {
+    return Text('加载中');
+  }
+
+  @override
+  Widget networkPoorView() {
+    return GestureDetector(
+      child: Text('网络差'),
+      onTap: () => retry(),
+    );
+  }
+
+  @override
+  Widget noDataView() {
+    return Text('无数据');
+  }
+
+  @override
+  Widget noNetworkView() {
+    return Text('无网络');
   }
 }

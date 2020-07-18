@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +21,7 @@ color0xFF2A3137() => Color(0xFF2A3137);
 
 color0xFFFF3333() => Color(0xFFFF3333);
 
-/// @description 待描述
+/// @description AlertDialogWidget
 ///
 /// @author 燕文强
 ///
@@ -564,7 +563,7 @@ class AlertBuilder {
     this.rightClick,
     this.barrierDismissible,
     this.isCompulsory,
-  }){
+  }) {
     if (leftClick != null) {
       leftButtonResponse = leftClick;
     }
