@@ -130,7 +130,7 @@ class Request {
 
               /// 以application/x-www-form-urlencoded格式发送数据
               /// todo: contentType属性去掉了
-//              contentType: api.contentType,
+              contentType: api.contentType.toString(),
               // 当状态错误时是否接收数据
               receiveDataWhenStatusError: true,
               // 允许重定向
