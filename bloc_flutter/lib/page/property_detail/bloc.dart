@@ -1,6 +1,7 @@
 import 'package:bloc_flutter/app_base/apluspro_page.dart';
 import 'package:bloc_flutter/architecture/stream/request_stream_controller.dart';
-import 'package:bloc_flutter/repository/apluspro_api.dart';
+import 'package:bloc_flutter/repository/baidu.dart';
+import 'package:bloc_flutter/repository/base/apluspro_api.dart';
 
 /// @description 待描述
 ///
@@ -9,22 +10,15 @@ import 'package:bloc_flutter/repository/apluspro_api.dart';
 /// @date 2020/7/19
 
 class PropertyDetailBloc extends APlusBloc {
-  RequestStreamController<APlusProApi, List<String>> requestStreamController;
+  RequestStreamController<BaiDuApi, String> requestStreamController = RequestStreamController<BaiDuApi, String>();
+  BaiDuApi _baiDuApi = BaiDuApi.webContent();
 
-//  PropertyDetailBloc() {
-//    requestStreamController = RequestStreamController<APlusProApi, String>(
-//      APlusProApi(),
-//      onStart: () {},
-//      onCompleted: () {},
-//    );
-//  }
-
-  void propertyDetail() {
-    requestStreamController = RequestStreamController<APlusProApi, List<String>>(
-      APlusProApi(),
-      onStart: () {},
-      onCompleted: () {},
-    );
+  void initData() {
+    // 模拟耗时，以便看到loading state ui
+    Future.delayed(Duration(milliseconds: 500), () {
+      requestStreamController.add(_baiDuApi);
+    });
+//    requestStreamController.add(_baiDuApi);
   }
 
   @override
@@ -34,6 +28,6 @@ class PropertyDetailBloc extends APlusBloc {
 
   @override
   void retry() {
-    // TODO: implement retry
+    requestStreamController.add(_baiDuApi);
   }
 }

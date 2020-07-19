@@ -7,9 +7,12 @@ import 'package:bloc_flutter/architecture/network/net/api.dart';
 /// @date 2020/7/19
 
 class APlusProApi<String> extends Api {
+  APlusProApi() {
+    baseUrl = 'https://www.baidu.com';
+  }
+
   @override
   bool state(obj) {
-    // TODO: implement state
-    return null;
+    return true;
   }
 }

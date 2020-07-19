@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:bloc_flutter/app_base/apluspro_page.dart';
 import 'package:bloc_flutter/architecture/bloc/bloc_widget.dart';
+import 'package:bloc_flutter/architecture/network/net/requester.dart';
+import 'package:bloc_flutter/architecture/utils/logger.dart';
 import 'package:bloc_flutter/page/property_detail/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 /// @description 待描述
@@ -24,10 +29,10 @@ class _PropertyDetailState extends APlusState<PropertyDetailPage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: streamBuilder<List<String>>(
+        child: streamBuilder<String>(
           stream: widget.bloc.requestStreamController.stream,
           completedView: (data) {
-            return Text(data[1]);
+            return Text(data);
           },
         ),
       ),
@@ -35,7 +40,30 @@ class _PropertyDetailState extends APlusState<PropertyDetailPage> {
   }
 
   @override
+  void prepare() {
+    _networkInit();
+    super.prepare();
+  }
+
+  _networkInit() {
+    /// 定义一个拦截器
+    Interceptor interceptor = InterceptorsWrapper(onRequest: (RequestOptions option) {
+      /// 可统一制定请求日志
+      logFormat('请求地址 => ${option.uri.toString()}'
+          '\n  请求header => ${json.encode(option.headers)}'
+          '\n  请求body => ${json.encode(option.data)}');
+    }, onResponse: (Response response) {
+      /// 可统一制定请求日志
+      logFormat('响应 => ${response.data.toString()}');
+    });
+
+    /// 注册并注入拦截器
+    Request.register([interceptor]);
+    Request.logEnable();
+  }
+
+  @override
   viewDidLoad(callback) {
-    widget.bloc.propertyDetail();
+    widget.bloc.initData();
   }
 }

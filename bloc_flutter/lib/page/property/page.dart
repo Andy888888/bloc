@@ -1,6 +1,8 @@
 import 'package:bloc_flutter/app_base/apluspro_page.dart';
 import 'package:bloc_flutter/architecture/bloc/bloc_widget.dart';
 import 'package:bloc_flutter/architecture/utils/logger.dart';
+import 'package:bloc_flutter/page/property_detail/bloc.dart';
+import 'package:bloc_flutter/page/property_detail/page.dart';
 import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'bloc.dart';
@@ -55,7 +57,8 @@ class _PropertyState extends APlusState<PropertyPage> {
                   context: context,
                   content: '再不打招呼，就当不知道',
                   rightClick: () {
-                    Navigator.pop(alertDialog.context);
+                    finish();
+                    launch(PropertyDetailPage('房源详情', PropertyDetailBloc()));
                   },
                 ),
               );

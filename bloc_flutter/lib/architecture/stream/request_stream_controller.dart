@@ -15,20 +15,60 @@ class RequestStreamController<S extends Api, T> {
   final StreamController<S> _controller = StreamController<S>();
   Stream<StateBo<T>> stream;
 
-  RequestStreamController(S api, {Function onStart, Function onCompleted}) {
+  Function() _onStart;
+  Function() _onCompleted;
+
+//  RequestStreamController(S api, {Function onStart, Function onCompleted}) {
+//    StreamTransformer<S, StateBo<T>> transformer = StreamTransformer<S, StateBo<T>>.fromHandlers(handleData: (value, sink) {
+//      Request(
+//          api: value,
+//          onStart: (api) {
+//            sink.add(StateBo.loading());
+//            if (onStart != null) onStart();
+//          },
+//          onSuccess: (response) {
+//            if (onCompleted != null) onCompleted();
+//            sink.add(StateBo<T>(response.data));
+//          },
+//          onFail: (response) {
+//            if (onCompleted != null) onCompleted();
+//            sink.add(StateBo.networkFail());
+//          },
+//          onError: (error) {
+//            if (error.runtimeType is DioError) {
+//              DioError dioError = error;
+//              int statusCode = dioError.response.statusCode;
+//              Net.logFormat('request error status code:$statusCode');
+//            } else {
+//              Net.logFormat('request error:${error.toString()}');
+//            }
+//            if (onCompleted != null) onCompleted();
+//            sink.add(StateBo.error());
+//          },
+//          onCatchError: (error) {
+//            Net.logFormat('catch error:${error.toString()}');
+//            if (onCompleted != null) onCompleted();
+//            sink.add(StateBo.error());
+//          });
+//    });
+//    stream = _controller.stream.transform(transformer);
+//    _controller.add(api);
+//  }
+
+  RequestStreamController() {
     StreamTransformer<S, StateBo<T>> transformer = StreamTransformer<S, StateBo<T>>.fromHandlers(handleData: (value, sink) {
       Request(
           api: value,
           onStart: (api) {
             sink.add(StateBo.loading());
-            if (onStart != null) onStart();
+            if (_onStart != null) _onStart();
           },
           onSuccess: (response) {
-            if (onCompleted != null) onCompleted();
+            if (_onCompleted != null) _onCompleted();
             sink.add(StateBo<T>(response.data));
           },
           onFail: (response) {
-            if (onCompleted != null) onCompleted();
+            if (_onCompleted != null) _onCompleted();
             sink.add(StateBo.networkFail());
           },
           onError: (error) {
@@ -39,20 +79,21 @@ class RequestStreamController<S extends Api, T> {
             } else {
               Net.logFormat('request error:${error.toString()}');
             }
-            if (onCompleted != null) onCompleted();
+            if (_onCompleted != null) _onCompleted();
             sink.add(StateBo.error());
           },
           onCatchError: (error) {
             Net.logFormat('catch error:${error.toString()}');
-            if (onCompleted != null) onCompleted();
+            if (_onCompleted != null) _onCompleted();
             sink.add(StateBo.error());
           });
     });
     stream = _controller.stream.transform(transformer);
-    _controller.add(api);
   }
 
-  void add(S api) {
+  add(S api, {Function onStart, Function onCompleted}) {
+    _onStart = onStart;
+    _onCompleted = onCompleted;
     _controller.add(api);
   }
 
