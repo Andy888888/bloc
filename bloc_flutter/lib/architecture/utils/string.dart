@@ -16,3 +16,10 @@ bool nullOrEmpty(String value) {
   }
   return false;
 }
+
+String null2Empty(String value) {
+  if (value == null) {
+    return Empty;
+  }
+  return value;
+}
