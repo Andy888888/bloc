@@ -10,9 +10,7 @@ import 'package:flutter/material.dart';
 /// @author 燕文强
 ///
 /// @date 2020/7/15
-abstract class APlusBloc extends Bloc {
-  void requestProperties();
-}
+abstract class APlusBloc extends Bloc {}
 
 abstract class APlusProPage<T extends APlusBloc> extends BlocWidget<T> {
   APlusProPage(String title, T bloc) : super(title, bloc);

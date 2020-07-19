@@ -1,0 +1,62 @@
+import 'dart:async';
+import 'package:bloc_flutter/architecture/network/net/api.dart';
+import 'package:bloc_flutter/architecture/network/net/requester.dart';
+import 'package:bloc_flutter/architecture/network/utils/logger.dart';
+import 'package:bloc_flutter/architecture/stream/state_bo.dart';
+import 'package:dio/dio.dart';
+import '../network/deliver.dart';
+
+/// @description RequestStreamController
+///
+/// @author 燕文强
+///
+/// @date 2019-12-30
+class RequestStreamController<S extends Api, T> {
+  final StreamController<S> _controller = StreamController<S>();
+  Stream<StateBo<T>> stream;
+
+  RequestStreamController(S api, {Function onStart, Function onCompleted}) {
+    StreamTransformer<S, StateBo<T>> transformer = StreamTransformer<S, StateBo<T>>.fromHandlers(handleData: (value, sink) {
+      Request(
+          api: value,
+          onStart: (api) {
+            sink.add(StateBo.loading());
+            if (onStart != null) onStart();
+          },
+          onSuccess: (response) {
+            if (onCompleted != null) onCompleted();
+            sink.add(StateBo<T>(response.data));
+          },
+          onFail: (response) {
+            if (onCompleted != null) onCompleted();
+            sink.add(StateBo.networkFail());
+          },
+          onError: (error) {
+            if (error.runtimeType is DioError) {
+              DioError dioError = error;
+              int statusCode = dioError.response.statusCode;
+              Net.logFormat('request error status code:$statusCode');
+            } else {
+              Net.logFormat('request error:${error.toString()}');
+            }
+            if (onCompleted != null) onCompleted();
+            sink.add(StateBo.error());
+          },
+          onCatchError: (error) {
+            Net.logFormat('catch error:${error.toString()}');
+            if (onCompleted != null) onCompleted();
+            sink.add(StateBo.error());
+          });
+    });
+    stream = _controller.stream.transform(transformer);
+    _controller.add(api);
+  }
+
+  void add(S api) {
+    _controller.add(api);
+  }
+
+  void close() {
+    _controller.close();
+  }
+}

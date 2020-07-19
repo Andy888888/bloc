@@ -17,7 +17,6 @@ class PropertyBloc extends APlusBloc {
     controller.close();
   }
 
-  @override
   void requestProperties() {
     Future.delayed(Duration(seconds: 2), () {
       controller.add(StateBo.networkFail());

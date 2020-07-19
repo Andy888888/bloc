@@ -1,74 +1,76 @@
 import 'dart:async';
-import 'package:bloc_flutter/architecture/net/utils/logger.dart';
+import 'package:bloc_flutter/architecture/network/utils/logger.dart';
 import 'package:bloc_flutter/architecture/stream/state_bo.dart';
-
 import 'deliver.dart';
-import 'network/api.dart';
-import 'network/requester.dart';
+import 'net/api.dart';
+import 'net/requester.dart';
 
 /// @description Observable
 ///
 /// @author 燕文强
 ///
 /// @date 2019-12-30
-class Observable<S extends Api, T> {
+class Observable<S extends Api, T extends StateBo> {
   final StreamController<S> streamController = StreamController<S>();
 
-  Stream<StateBo<T>> stream;
+  Stream<S> get stream => streamController.stream;
 
-  StreamTransformer<S, StateBo<T>> _transformer;
+  StreamSink<S> get _sink => streamController.sink;
+  StreamTransformer<S, T> _transformer;
   final S api;
   Deliver deliver;
   Function() _onSubscribe;
   Function() _onCompleted;
 
   Observable({this.api, this.deliver}) {
-    _transformer = StreamTransformer<S, StateBo<T>>.fromHandlers(handleData: (value, sink) {
+    _transformer = StreamTransformer<S, T>.fromHandlers(handleData: (value, sink) {
       Request(
           api: value,
           onStart: (api) {
-            sink.add(StateBo.loading());
             _onSubscribe();
           },
           onSuccess: (response) {
             _onCompleted();
-            sink.add(StateBo<T>(response.data));
-            deliver.applySuccess<StateBo<T>>(sink, response);
+            deliver.applySuccess<T>(sink, response);
           },
           onFail: (response) {
             _onCompleted();
-            sink.add(StateBo.networkFail());
-            deliver.applyFail<StateBo<T>>(sink, response);
+            deliver.applyFail<T>(sink, response);
           },
           onError: (error) {
             _onCompleted();
-            sink.add(StateBo.error());
-            deliver.applyError<StateBo<T>>(sink, error);
+            deliver.applyError<T>(sink, error);
           },
           onCatchError: (error) {
             _onCompleted();
-            sink.add(StateBo.error());
-            deliver.applyCatchError<StateBo<T>>(sink, error);
+            deliver.applyCatchError<T>(sink, error);
           });
     });
-    stream = compose();
   }
 
-  Stream<StateBo<T>> compose() {
+  Stream<T> compose() {
     return streamController.stream.transform(_transformer);
   }
 
-  void subscribe({void Function() onSubscribe, void Function() onCompleted}) {
-    assert(_transformer == null, '_transformer cannot be empty');
+  void subscribe(
+      {void Function() onSubscribe,
+      void Function(T data) onData,
+      void Function(dynamic error) onError,
+      void Function() onCompleted}) {
+    if (_transformer == null) {
+      Net.logFormat('_transformer cannot be empty');
+      return;
+    }
     if (deliver == null) {
       deliver = ApiDeliver();
     }
     _onSubscribe = onSubscribe;
     _onCompleted = onCompleted;
+    streamController.stream.transform(_transformer).listen(onData, onError: onError, onDone: () => dispose());
     streamController.add(api);
   }
 
-  void close() {
+  void dispose() {
     streamController.close();
   }
 }

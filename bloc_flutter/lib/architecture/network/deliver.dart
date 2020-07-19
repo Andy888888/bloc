@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'network/response.dart';
+import 'net/response.dart';
 export 'dart:async';
 
 /// @description Deliver
