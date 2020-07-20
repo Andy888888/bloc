@@ -12,48 +12,11 @@ import '../network/deliver.dart';
 ///
 /// @date 2019-12-30
 class RequestStreamController<S extends Api, T> {
-  final StreamController<S> _controller = StreamController<S>();
   Stream<StateBo<T>> stream;
 
+  final StreamController<S> _controller = StreamController<S>();
   Function() _onStart;
   Function() _onCompleted;
-
-//  RequestStreamController(S api, {Function onStart, Function onCompleted}) {
-//    StreamTransformer<S, StateBo<T>> transformer = StreamTransformer<S, StateBo<T>>.fromHandlers(handleData: (value, sink) {
-//      Request(
-//          api: value,
-//          onStart: (api) {
-//            sink.add(StateBo.loading());
-//            if (onStart != null) onStart();
-//          },
-//          onSuccess: (response) {
-//            if (onCompleted != null) onCompleted();
-//            sink.add(StateBo<T>(response.data));
-//          },
-//          onFail: (response) {
-//            if (onCompleted != null) onCompleted();
-//            sink.add(StateBo.networkFail());
-//          },
-//          onError: (error) {
-//            if (error.runtimeType is DioError) {
-//              DioError dioError = error;
-//              int statusCode = dioError.response.statusCode;
-//              Net.logFormat('request error status code:$statusCode');
-//            } else {
-//              Net.logFormat('request error:${error.toString()}');
-//            }
-//            if (onCompleted != null) onCompleted();
-//            sink.add(StateBo.error());
-//          },
-//          onCatchError: (error) {
-//            Net.logFormat('catch error:${error.toString()}');
-//            if (onCompleted != null) onCompleted();
-//            sink.add(StateBo.error());
-//          });
-//    });
-//    stream = _controller.stream.transform(transformer);
-//    _controller.add(api);
-//  }
 
   RequestStreamController() {
     StreamTransformer<S, StateBo<T>> transformer = StreamTransformer<S, StateBo<T>>.fromHandlers(handleData: (value, sink) {
