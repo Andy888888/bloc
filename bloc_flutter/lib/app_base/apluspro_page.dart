@@ -77,7 +77,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
       child: Container(
         height: Screen.height(context),
         width: Screen.width(context),
-        color: Colors.transparent,
+        color: Colors.white,
         padding: EdgeInsets.only(left: 100, right: 100),
         child: Image.asset('images/loading_state.gif'),
       ),
@@ -98,7 +98,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
       child: Container(
         height: Screen.height(context),
         width: Screen.width(context),
-        color: Colors.transparent,
+        color: Colors.white,
         padding: EdgeInsets.only(left: 100, right: 100),
         child: Image.asset('images/no_data_state.png'),
       ),
@@ -112,7 +112,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
         child: Container(
           height: Screen.height(context),
           width: Screen.width(context),
-          color: Colors.transparent,
+          color: Colors.white,
           padding: EdgeInsets.only(left: 100, right: 100),
           child: Image.asset('images/net_exception_state.png'),
         ),
@@ -128,7 +128,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
         child: Container(
           height: Screen.height(context),
           width: Screen.width(context),
-          color: Colors.transparent,
+          color: Colors.white,
           padding: EdgeInsets.only(left: 100, right: 100),
           child: Image.asset('images/network_fail_state.png'),
         ),
