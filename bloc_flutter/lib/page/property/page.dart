@@ -29,13 +29,33 @@ class _PropertyState extends APlusState<PropertyPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: streamBuilder<String>(
-          stream: widget.bloc.controller.stream,
-          completedView: (data) {
-            return Text(data);
-          },
-        ),
+      body: streamBuilder<String>(
+        stream: widget.bloc.controller.stream,
+        completedView: (data) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(data),
+                GestureDetector(
+                  child: Container(
+                    color: Colors.blue,
+                    width: Screen.width(context),
+                    height: 80,
+                    margin: EdgeInsets.only(top: 30),
+                    child: Center(
+                        child: Text(
+                      '跳转详情页',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    )),
+                  ),
+                  onTap: () => launch(PropertyDetailPage('房源详情', PropertyDetailBloc())),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
 //        child: StreamBuilder<StateBo<String>>(
 //          stream: widget.bloc.controller.stream,
 //          initialData: StateBo<String>(data: '您要的房源正在赶来的路上'),
@@ -44,9 +64,9 @@ class _PropertyState extends APlusState<PropertyPage> {
 //            return Text(snapshot.data.data);
 //          },
 //        ),
-      ),
+
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: Icon(Icons.favorite),
         onPressed: () {
           dialog(
             content: '这是一个弹框消息',
@@ -54,10 +74,9 @@ class _PropertyState extends APlusState<PropertyPage> {
               alertDialog.update(
                 AlertBuilder.create(
                   context: context,
-                  content: '再不打招呼，就当不知道',
+                  content: '弹框不消失，修改弹框内容',
                   rightClick: () {
                     finish();
-                    launch(PropertyDetailPage('房源详情', PropertyDetailBloc()));
                   },
                 ),
               );
@@ -66,6 +85,7 @@ class _PropertyState extends APlusState<PropertyPage> {
           );
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 

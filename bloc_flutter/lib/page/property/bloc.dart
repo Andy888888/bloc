@@ -25,9 +25,9 @@ class PropertyBloc extends APlusBloc {
   void retry() {
     logFormat('重试');
     Future.delayed(Duration(seconds: 1), () {
-//      controller.add(StateBo<String>('获取到120条房源'));
+      controller.add(StateBo<String>('获取到120条房源'));
 //      controller.add(StateBo.noData());
-      controller.add(StateBo.noNetwork());
+//      controller.add(StateBo.noNetwork());
     });
   }
 }
