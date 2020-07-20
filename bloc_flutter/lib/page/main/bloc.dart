@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bloc_flutter/architecture/bloc_provider/base_bloc.dart';
+import 'package:bloc_flutter/bloc_provider/base_bloc.dart';
 
 /// @description MainBloc
 ///

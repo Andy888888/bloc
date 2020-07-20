@@ -1,9 +1,6 @@
-import 'package:bloc_flutter/architecture/bloc/bloc.dart';
-import 'package:bloc_flutter/architecture/bloc/bloc_widget.dart';
-import 'package:bloc_flutter/architecture/common/screen.dart';
-import 'package:bloc_flutter/architecture/utils/logger.dart';
 import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:stark/stark.dart';
 
 /// @description 应用层页面基类
 ///

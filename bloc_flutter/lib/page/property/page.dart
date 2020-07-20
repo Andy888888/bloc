@@ -1,10 +1,9 @@
 import 'package:bloc_flutter/app_base/apluspro_page.dart';
-import 'package:bloc_flutter/architecture/bloc/bloc_widget.dart';
-import 'package:bloc_flutter/architecture/utils/logger.dart';
 import 'package:bloc_flutter/page/property_detail/bloc.dart';
 import 'package:bloc_flutter/page/property_detail/page.dart';
 import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:stark/stark.dart';
 import 'bloc.dart';
 
 /// @description 房源页面

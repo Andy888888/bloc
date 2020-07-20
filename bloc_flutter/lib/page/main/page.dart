@@ -1,8 +1,7 @@
-import 'package:bloc_flutter/architecture/bloc_provider/bloc_provider.dart';
+import 'package:bloc_flutter/bloc_provider/bloc_provider.dart';
 import 'package:bloc_flutter/page/property/bloc.dart';
 import 'package:bloc_flutter/page/property/page.dart';
 import 'package:flutter/material.dart';
-
 import 'bloc.dart';
 
 /// @description Provider方式的页面
