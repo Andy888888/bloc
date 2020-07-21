@@ -13,12 +13,15 @@ import 'bloc.dart';
 /// @date 2020/7/16
 
 class PropertyPage extends APlusProPage<PropertyBloc> {
-  PropertyPage(String title, PropertyBloc bloc) : super(title, bloc);
+  PropertyPage(PropertyBloc bloc) : super(bloc);
 
   @override
   BlocState<BlocWidget<PropertyBloc>> state() {
     return _PropertyState();
   }
+
+  @override
+  String get title => '房源列表';
 }
 
 class _PropertyState extends APlusState<PropertyPage> {
@@ -49,7 +52,7 @@ class _PropertyState extends APlusState<PropertyPage> {
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     )),
                   ),
-                  onTap: () => launch(PropertyDetailPage('房源详情', PropertyDetailBloc())),
+                  onTap: () => launch(PropertyDetailPage(PropertyDetailBloc())),
                 ),
               ],
             ),

@@ -12,10 +12,13 @@ import 'package:stark/stark.dart';
 /// @date 2020/7/19
 
 class PropertyDetailPage extends APlusProPage<PropertyDetailBloc> {
-  PropertyDetailPage(String title, PropertyDetailBloc bloc) : super(title, bloc);
+  PropertyDetailPage(PropertyDetailBloc bloc) : super(bloc);
 
   @override
   BlocState<BlocWidget<PropertyDetailBloc>> state() => _PropertyDetailState();
+
+  @override
+  String get title => '房源详情';
 }
 
 class _PropertyDetailState extends APlusState<PropertyDetailPage> {

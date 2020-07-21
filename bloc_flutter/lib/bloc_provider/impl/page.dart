@@ -28,17 +28,16 @@ class MainPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton:
-          Container(
-            margin: EdgeInsets.only(bottom: 80,right: 40),
-            child: FloatingActionButton(
-              child: Icon(Icons.navigate_next),
-              onPressed: () {
-                bloc.plus();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Scaffold(body: PropertyPage('房源列表', PropertyBloc()))));
-              },
-            ),
-          ),
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(bottom: 80, right: 40),
+        child: FloatingActionButton(
+          child: Icon(Icons.navigate_next),
+          onPressed: () {
+            bloc.plus();
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Scaffold(body: PropertyPage(PropertyBloc()))));
+          },
+        ),
+      ),
     );
   }
 }

@@ -10,7 +10,7 @@ import 'package:stark/stark.dart';
 abstract class APlusBloc extends Bloc {}
 
 abstract class APlusProPage<T extends APlusBloc> extends BlocWidget<T> {
-  APlusProPage(String title, T bloc) : super(title, bloc);
+  APlusProPage(T bloc) : super(bloc);
 }
 
 /// todo: 应该把默认的StateView在这里实现
