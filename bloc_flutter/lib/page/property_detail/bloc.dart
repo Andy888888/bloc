@@ -12,7 +12,7 @@ import '../../repository/baidu.dart';
 /// @date 2020/7/19
 
 class PropertyDetailBloc extends APlusBloc {
-  RequestStreamController<BaiDuApi, String> requestStreamController = RequestStreamController<BaiDuApi, String>();
+  RequestStreamController<BaiDuApi<String>, String> requestStreamController = RequestStreamController<BaiDuApi<String>, String>();
   BaiDuApi _baiDuApi = BaiDuApi.webContent();
   RequestWithState requestWithState;
 
@@ -20,7 +20,6 @@ class PropertyDetailBloc extends APlusBloc {
     // 模拟耗时，以便看到loading state ui
     Future.delayed(Duration(milliseconds: 500), () {
       requestStreamController.add(_baiDuApi);
-//      RequestWithState<BaiDuApi,String>().send(api)
     });
 //    requestStreamController.add(_baiDuApi);
   }

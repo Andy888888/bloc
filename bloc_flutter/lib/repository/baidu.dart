@@ -6,9 +6,9 @@ import 'package:stark/network/net/api.dart';
 /// @author 燕文强
 ///
 /// @date 2020/7/19
-class BaiDuApi<R> extends APlusProApi {
+class BaiDuApi<T> extends APlusProApi<T> {
   /// 获取用户Token信息
   static BaiDuApi webContent() => BaiDuApi<String>()
     ..method = Method.GET
-    ..dataConvert = (data) => data;
+    ..dataConvert = (data) => data.toString();
 }

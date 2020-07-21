@@ -8,10 +8,10 @@ import 'package:stark/stream/state_bo.dart';
 /// @author 燕文强
 ///
 /// @date 2020/7/21
-class RequestWithState<S extends Api, T> {
+class RequestWithState<S extends Api<T>, T extends StatusModel> {
   void send(S api,
       {Function(S api) onStart, Function onCompleted, Function(StateBo<T> data) onSuccess, Function(StateBo<T> data) onFail}) {
-    Request(
+    Request<T>(
       api: api,
       onStart: (api) {
         if (onStart != null) onStart(api);
@@ -45,5 +45,19 @@ class RequestWithState<S extends Api, T> {
         onFail(StateBo.error());
       },
     );
+  }
+}
+
+class StatusModel {
+  int code;
+  String message;
+}
+
+class MyModel extends StatusModel {}
+
+class MyApi extends Api<MyModel> {
+  @override
+  bool state(MyModel obj) {
+    return obj.code == 200;
   }
 }
