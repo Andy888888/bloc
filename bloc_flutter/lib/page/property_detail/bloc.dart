@@ -1,6 +1,9 @@
 import 'package:bloc_flutter/app_base/apluspro_page.dart';
+import 'package:bloc_flutter/app_base/request_whith_state.dart';
 import 'package:bloc_flutter/repository/baidu.dart';
 import 'package:stark/stark.dart';
+
+import '../../repository/baidu.dart';
 
 /// @description 待描述
 ///
@@ -11,11 +14,13 @@ import 'package:stark/stark.dart';
 class PropertyDetailBloc extends APlusBloc {
   RequestStreamController<BaiDuApi, String> requestStreamController = RequestStreamController<BaiDuApi, String>();
   BaiDuApi _baiDuApi = BaiDuApi.webContent();
+  RequestWithState requestWithState;
 
   void initData() {
     // 模拟耗时，以便看到loading state ui
     Future.delayed(Duration(milliseconds: 500), () {
       requestStreamController.add(_baiDuApi);
+//      RequestWithState<BaiDuApi,String>().send(api)
     });
 //    requestStreamController.add(_baiDuApi);
   }
