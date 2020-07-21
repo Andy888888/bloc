@@ -9,10 +9,10 @@ import 'package:stark/stream/state_bo.dart';
 /// @author 燕文强
 ///
 /// @date 2020/7/21
-class RequestWithState<S extends Api<C, T>, C, T extends StatusModel> {
-  void send(S api,
-      {Function(S api) onStart, Function onCompleted, Function(StateBo<T> data) onSuccess, Function(StateBo<T> data) onFail}) {
-    Request<C, T>(
+class RequestWithState<S, T extends StatusModel> {
+  void send<A extends Api<S, T>>(A api,
+      {Function(A api) onStart, Function onCompleted, Function(StateBo<T> data) onSuccess, Function(StateBo<T> data) onFail}) {
+    Request<S, T>(
       api: api,
       onStart: (api) {
         if (onStart != null) onStart(api);
@@ -23,7 +23,9 @@ class RequestWithState<S extends Api<C, T>, C, T extends StatusModel> {
       },
       onFail: (response) {
         if (onCompleted != null) onCompleted();
-        onFail(StateBo.businessFail(code: 120, message: response.data.toString()));
+        int code = response.data.code;
+        String message = response.data.message;
+        onFail(StateBo.businessFail(code: code, message: message));
       },
       onError: (error) {
         if (onCompleted != null) onCompleted();
@@ -49,10 +51,20 @@ class RequestWithState<S extends Api<C, T>, C, T extends StatusModel> {
   }
 }
 
-aaa() {
-  RequestWithState<MyApi<String, MyModel>, String, MyModel>().send(MyApi.webContent(), onSuccess: (data) {
-    log(data.data.cat);
-  });
+test() {
+  RequestWithState<String, MyModel>().send<MyApi<String, MyModel>>(
+    MyApi.webContent(),
+    onSuccess: (data) {
+      log(data.data.cat);
+    },
+    onFail: (data) {
+      logFormat('code:${data.code}，message:${data.message}');
+    },
+  );
+}
+
+class AAA {
+  String flag;
 }
 
 class StatusModel {
