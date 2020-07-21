@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:stark/network/network.dart';
 import 'package:stark/network/utils/logger.dart';
+import 'package:stark/stark.dart';
 import 'package:stark/stream/state_bo.dart';
 
 /// @description 待描述
@@ -8,7 +9,7 @@ import 'package:stark/stream/state_bo.dart';
 /// @author 燕文强
 ///
 /// @date 2020/7/21
-class RequestWithState<S extends Api<C, T>, T extends StatusModel, C> {
+class RequestWithState<S extends Api<C, T>, C, T extends StatusModel> {
   void send(S api,
       {Function(S api) onStart, Function onCompleted, Function(StateBo<T> data) onSuccess, Function(StateBo<T> data) onFail}) {
     Request<C, T>(
@@ -46,6 +47,12 @@ class RequestWithState<S extends Api<C, T>, T extends StatusModel, C> {
       },
     );
   }
+}
+
+aaa() {
+  RequestWithState<MyApi<String, MyModel>, String, MyModel>().send(MyApi.webContent(), onSuccess: (data) {
+    log(data.data.cat);
+  });
 }
 
 class StatusModel {
