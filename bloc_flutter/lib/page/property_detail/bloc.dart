@@ -12,8 +12,8 @@ import '../../repository/baidu.dart';
 /// @date 2020/7/19
 
 class PropertyDetailBloc extends APlusBloc {
-  RequestStreamController<BaiDuApi<String>, String> requestStreamController = RequestStreamController<BaiDuApi<String>, String>();
-  BaiDuApi _baiDuApi = BaiDuApi.webContent();
+  RequestStreamController<BaiDuApi, String> requestStreamController = RequestStreamController<BaiDuApi, String>();
+  var _baiDuApi = BaiDuApi.webContent();
   RequestWithState requestWithState;
 
   void initData() {

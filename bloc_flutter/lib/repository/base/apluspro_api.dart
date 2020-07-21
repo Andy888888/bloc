@@ -6,7 +6,7 @@ import 'package:stark/network/net/api.dart';
 ///
 /// @date 2020/7/19
 
-class APlusProApi<T> extends Api<T> {
+class APlusProApi<S, T> extends Api<S, T> {
   APlusProApi() {
     baseUrl = 'https://www.baidu.com';
   }
