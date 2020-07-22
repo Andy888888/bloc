@@ -1,5 +1,6 @@
 import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:stark/network/state_bo.dart';
 import 'package:stark/stark.dart';
 
 /// @description 应用层页面基类
@@ -64,9 +65,9 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
   }
 
   @override
-  Widget errorView() {
+  Widget errorView(StateBo data) {
     return GestureDetector(
-      child: Text('哎呀，出错了'),
+      child: Text('哎呀，出错了(${data.code})'),
       onTap: () => retry(),
     );
   }
@@ -85,7 +86,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
   }
 
   @override
-  Widget networkPoorView() {
+  Widget networkPoorView(StateBo data) {
     return GestureDetector(
       child: Text('网络差'),
       onTap: () => retry(),
@@ -106,7 +107,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
   }
 
   @override
-  Widget noNetworkView() {
+  Widget noNetworkView(StateBo data) {
     return GestureDetector(
       child: SafeArea(
         child: Container(
@@ -122,7 +123,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
   }
 
   @override
-  Widget networkFailView() {
+  Widget networkFailView(StateBo data) {
     return GestureDetector(
       child: SafeArea(
         child: Container(

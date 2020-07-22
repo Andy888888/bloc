@@ -17,8 +17,9 @@ class TouTiaoNewsApi<S, T extends BaseNewsReqEntity> extends NewsApi<S, T> {
         ..method = Method.GET
         ..body = params
         ..dataConvert = (data) {
-          BaseNewsReqEntity<ToutiaoNewsRespEntity> entity =
-              JsonConvert.fromJsonAsT<BaseNewsReqEntity<ToutiaoNewsRespEntity>>(data);
+//          BaseNewsReqEntity<ToutiaoNewsRespEntity> entity =
+//              JsonConvert.fromJsonAsT<BaseNewsReqEntity<ToutiaoNewsRespEntity>>(data);
+          var entity = BaseNewsReqEntity<ToutiaoNewsRespEntity>.fromJson(data);
           return entity;
         };
 }

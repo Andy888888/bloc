@@ -15,7 +15,7 @@ class BaseNewsReqEntity<T> {
     Map<String, dynamic> map = Map<String, dynamic>();
     map['reason'] = reason;
     map['error_code'] = errorCode;
-    map['result'] = JsonConvert.fromJsonAsT(result);
+    map['result'] = JsonConvert.fromJsonAsT<T>(result);
     return map;
   }
 }
