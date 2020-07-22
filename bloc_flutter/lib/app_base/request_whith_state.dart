@@ -1,17 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:stark/network/network.dart';
+import 'package:stark/network/state_bo.dart';
 import 'package:stark/network/utils/logger.dart';
 import 'package:stark/stark.dart';
-import 'package:stark/stream/state_bo.dart';
 
 /// @description 待描述
 ///
 /// @author 燕文强
 ///
 /// @date 2020/7/21
-class RequestWithState<S, T extends StatusModel> {
-  void send<A extends Api<S, T>>(A api,
-      {Function(A api) onStart, Function onCompleted, Function(StateBo<T> data) onSuccess, Function(StateBo<T> data) onFail}) {
+class RequestWithState<S, T extends StatusModel> extends AbsRequestWithState<S, T> {
+  @override
+  void send(
+    Api<S, T> api, {
+    Function(Api<S, T> api) onStart,
+    Function onCompleted,
+    Function(StateBo<T> data) onSuccess,
+    Function(StateBo<T> data) onFail,
+  }) {
     Request<S, T>(
       api: api,
       onStart: (api) {
@@ -87,6 +93,7 @@ class RequestWithState<S, T extends StatusModel> {
         Net.logFormat('catch error:${error.toString()}');
         if (error.runtimeType is CastError) {
           onFail(StateBo.error(code: 110, message: error.toString()));
+          return;
         }
         onFail(StateBo.error());
       },
@@ -138,7 +145,7 @@ class RequestWithState<S, T extends StatusModel> {
 }
 
 test() {
-  RequestWithState<String, MyModel>().send<MyApi<String, MyModel>>(
+  RequestWithState<String, MyModel>().send(
     MyApi.webContent(),
     onSuccess: (data) {
       log(data.data.cat);

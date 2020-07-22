@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc_flutter/app_base/apluspro_page.dart';
+import 'package:stark/network/state_bo.dart';
 import 'package:stark/stark.dart';
 
 /// @description 房源Bloc
