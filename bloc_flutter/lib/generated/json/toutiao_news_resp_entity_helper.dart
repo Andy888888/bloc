@@ -1,4 +1,20 @@
 import 'package:bloc_flutter/model/resp/toutiao_news_resp_entity.dart';
+import 'package:bloc_flutter/model/resp/base_news_entity.dart';
+
+toutiaoRootFromJson(ToutiaoRoot data, Map<String, dynamic> json) {
+	if (json['result'] != null) {
+		data.result = new ToutiaoNewsRespEntity().fromJson(json['result']);
+	}
+	return data;
+}
+
+Map<String, dynamic> toutiaoRootToJson(ToutiaoRoot entity) {
+	final Map<String, dynamic> data = new Map<String, dynamic>();
+	if (entity.result != null) {
+		data['result'] = entity.result.toJson();
+	}
+	return data;
+}
 
 toutiaoNewsRespEntityFromJson(ToutiaoNewsRespEntity data, Map<String, dynamic> json) {
 	if (json['stat'] != null) {

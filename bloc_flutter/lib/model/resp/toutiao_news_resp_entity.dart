@@ -1,7 +1,10 @@
 import 'package:bloc_flutter/generated/json/base/json_convert_content.dart';
 import 'package:bloc_flutter/generated/json/base/json_filed.dart';
+import 'package:bloc_flutter/model/resp/base_news_entity.dart';
 
-import 'base_news_entity.dart';
+class ToutiaoRoot extends BaseNewsEntity with JsonConvert<ToutiaoRoot>{
+	ToutiaoNewsRespEntity result;
+}
 
 class ToutiaoNewsRespEntity with JsonConvert<ToutiaoNewsRespEntity> {
 	String stat;

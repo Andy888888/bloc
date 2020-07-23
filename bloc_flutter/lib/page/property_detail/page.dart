@@ -31,7 +31,7 @@ class _PropertyDetailState extends APlusState<PropertyDetailPage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: streamBuilder<BaseNewsReqEntity<ToutiaoNewsRespEntity>>(
+        child: streamBuilder<ToutiaoRoot>(
           stream: widget.bloc.requestStreamController.stream,
           completedView: (data) {
             String title = data.result.data[0].title;

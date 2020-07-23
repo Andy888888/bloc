@@ -137,4 +137,12 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
       onTap: () => retry(),
     );
   }
+
+  @override
+  Widget businessFail(StateBo data) {
+    return GestureDetector(
+      child: Text('哎呀，业务处理出错了(${data.code})'),
+      onTap: () => retry(),
+    );
+  }
 }

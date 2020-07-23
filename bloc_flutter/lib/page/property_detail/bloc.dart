@@ -36,7 +36,7 @@ class PropertyDetailBloc extends APlusBloc {
 //  "error_code":0
 //  }
 
-  var requestStreamController = RequestStreamController<ToutiaoNewsReqEntity, BaseNewsReqEntity<ToutiaoNewsRespEntity>>();
+  var requestStreamController = RequestStreamController<ToutiaoNewsReqEntity, ToutiaoRoot>();
   var _baiDuApi = TouTiaoNewsApi.yule(ToutiaoNewsReqEntity()
     ..type = 'yule'
     ..key = 'fa4ecf35661c6c45b59692202d441c81');
