@@ -2,6 +2,7 @@ import 'package:bloc_flutter/bloc_provider/bloc_provider.dart';
 import 'package:bloc_flutter/page/property/bloc.dart';
 import 'package:bloc_flutter/page/property/page.dart';
 import 'package:flutter/material.dart';
+import '../base_bloc.dart';
 import 'bloc.dart';
 
 /// @description Provider方式的页面
@@ -9,10 +10,20 @@ import 'bloc.dart';
 /// @author 燕文强
 ///
 /// @date 2020/7/14
-class MainPage extends StatelessWidget {
+
+abstract class Page<T extends BlocBase> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MainBloc bloc = BlocProvider.of<MainBloc>(context);
+    T bloc = BlocProvider.of<T>(context);
+    return createWidget(context, bloc);
+  }
+
+  Widget createWidget(BuildContext context, final T bloc);
+}
+
+class MainPage extends Page<MainBloc> {
+  @override
+  Widget createWidget(BuildContext context, MainBloc bloc) {
     return Scaffold(
       appBar: AppBar(
         title: Text('MainPage'),
