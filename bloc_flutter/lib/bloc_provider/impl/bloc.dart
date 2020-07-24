@@ -21,4 +21,8 @@ class MainBloc implements BlocBase {
   void dispose() {
     _controller.close();
   }
+
+  @override
+  void retry() {
+  }
 }
