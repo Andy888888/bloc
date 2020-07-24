@@ -35,12 +35,12 @@ class PropertyDetailBloc extends APlusBloc {
 //  }
 
   var requestStreamController = RequestStreamController<NewsReqEntity, NewsRespEntity>();
-  var _baiDuApi = TouTiaoNewsApi.yule(NewsReqEntity(type: 'yule', key: 'fa4ecf35661c6c45b59692202d441c81'));
+  var _newsApi = TouTiaoNewsApi.yule(NewsReqEntity(type: 'yule', key: 'fa4ecf35661c6c45b59692202d441c81'));
 
   void initData() {
     // 模拟耗时，以便看到loading state ui
     Future.delayed(Duration(milliseconds: 500), () {
-      requestStreamController.add(_baiDuApi);
+      requestStreamController.add(_newsApi);
     });
 //    requestStreamController.add(_baiDuApi);
   }
@@ -52,6 +52,6 @@ class PropertyDetailBloc extends APlusBloc {
 
   @override
   void retry() {
-    requestStreamController.add(_baiDuApi);
+    requestStreamController.add(_newsApi);
   }
 }
