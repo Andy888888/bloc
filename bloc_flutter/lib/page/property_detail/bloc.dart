@@ -1,8 +1,6 @@
 import 'package:bloc_flutter/app_base/apluspro_page.dart';
-import 'package:bloc_flutter/app_base/request_whith_state.dart';
-import 'package:bloc_flutter/model/req/toutiao_news_req_entity.dart';
-import 'package:bloc_flutter/model/resp/base_news_resp_entity.dart';
-import 'package:bloc_flutter/model/resp/toutiao_news_resp_entity.dart';
+import 'package:bloc_flutter/model/req/news_req_entity.dart';
+import 'package:bloc_flutter/model/resp/news_resp_entity.dart';
 import 'package:bloc_flutter/repository/toutiao_news_api.dart';
 import 'package:stark/stark.dart';
 
@@ -36,10 +34,8 @@ class PropertyDetailBloc extends APlusBloc {
 //  "error_code":0
 //  }
 
-  var requestStreamController = RequestStreamController<ToutiaoNewsReqEntity, ToutiaoRoot>();
-  var _baiDuApi = TouTiaoNewsApi.yule(ToutiaoNewsReqEntity()
-    ..type = 'yule'
-    ..key = 'fa4ecf35661c6c45b59692202d441c81');
+  var requestStreamController = RequestStreamController<NewsReqEntity, NewsRespEntity>();
+  var _baiDuApi = TouTiaoNewsApi.yule(NewsReqEntity(type: 'yule', key: 'fa4ecf35661c6c45b59692202d441c81'));
 
   void initData() {
     // 模拟耗时，以便看到loading state ui

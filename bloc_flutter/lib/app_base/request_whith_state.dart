@@ -193,8 +193,8 @@ class MyModel extends StatusModel {
 
 class MyApi<S, T extends StatusModel> extends Api<S, T> {
   @override
-  bool state(T obj) {
-    return obj.code == 200;
+  bool state(dynamic obj) {
+    return obj['code'] == 200;
   }
 
 //  static MyApi<String> webContent() => MyApi<String>()..method = Method.GET;

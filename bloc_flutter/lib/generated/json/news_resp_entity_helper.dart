@@ -1,35 +1,42 @@
-import 'package:bloc_flutter/model/resp/toutiao_news_resp_entity.dart';
-import 'package:bloc_flutter/model/resp/base_news_entity.dart';
+import 'package:bloc_flutter/model/resp/news_resp_entity.dart';
 
-toutiaoRootFromJson(ToutiaoRoot data, Map<String, dynamic> json) {
+newsRespEntityFromJson(NewsRespEntity data, Map<String, dynamic> json) {
+	if (json['reason'] != null) {
+		data.reason = json['reason']?.toString();
+	}
 	if (json['result'] != null) {
-		data.result = new ToutiaoNewsRespEntity().fromJson(json['result']);
+		data.result = new NewsRespResult().fromJson(json['result']);
+	}
+	if (json['error_code'] != null) {
+		data.errorCode = json['error_code']?.toInt();
 	}
 	return data;
 }
 
-Map<String, dynamic> toutiaoRootToJson(ToutiaoRoot entity) {
+Map<String, dynamic> newsRespEntityToJson(NewsRespEntity entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
+	data['reason'] = entity.reason;
 	if (entity.result != null) {
 		data['result'] = entity.result.toJson();
 	}
+	data['error_code'] = entity.errorCode;
 	return data;
 }
 
-toutiaoNewsRespEntityFromJson(ToutiaoNewsRespEntity data, Map<String, dynamic> json) {
+newsRespResultFromJson(NewsRespResult data, Map<String, dynamic> json) {
 	if (json['stat'] != null) {
 		data.stat = json['stat']?.toString();
 	}
 	if (json['data'] != null) {
-		data.data = new List<ToutiaoNewsRespData>();
+		data.data = new List<NewsRespResultData>();
 		(json['data'] as List).forEach((v) {
-			data.data.add(new ToutiaoNewsRespData().fromJson(v));
+			data.data.add(new NewsRespResultData().fromJson(v));
 		});
 	}
 	return data;
 }
 
-Map<String, dynamic> toutiaoNewsRespEntityToJson(ToutiaoNewsRespEntity entity) {
+Map<String, dynamic> newsRespResultToJson(NewsRespResult entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
 	data['stat'] = entity.stat;
 	if (entity.data != null) {
@@ -38,7 +45,7 @@ Map<String, dynamic> toutiaoNewsRespEntityToJson(ToutiaoNewsRespEntity entity) {
 	return data;
 }
 
-toutiaoNewsRespDataFromJson(ToutiaoNewsRespData data, Map<String, dynamic> json) {
+newsRespResultDataFromJson(NewsRespResultData data, Map<String, dynamic> json) {
 	if (json['uniquekey'] != null) {
 		data.uniquekey = json['uniquekey']?.toString();
 	}
@@ -69,7 +76,7 @@ toutiaoNewsRespDataFromJson(ToutiaoNewsRespData data, Map<String, dynamic> json)
 	return data;
 }
 
-Map<String, dynamic> toutiaoNewsRespDataToJson(ToutiaoNewsRespData entity) {
+Map<String, dynamic> newsRespResultDataToJson(NewsRespResultData entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
 	data['uniquekey'] = entity.uniquekey;
 	data['title'] = entity.title;

@@ -1,17 +1,19 @@
 import 'package:bloc_flutter/generated/json/base/json_convert_content.dart';
 import 'package:bloc_flutter/generated/json/base/json_filed.dart';
-import 'package:bloc_flutter/model/resp/base_news_entity.dart';
 
-class ToutiaoRoot extends BaseNewsEntity with JsonConvert<ToutiaoRoot>{
-	ToutiaoNewsRespEntity result;
+class NewsRespEntity with JsonConvert<NewsRespEntity> {
+	String reason;
+	NewsRespResult result;
+	@JSONField(name: "error_code")
+	int errorCode;
 }
 
-class ToutiaoNewsRespEntity with JsonConvert<ToutiaoNewsRespEntity> {
+class NewsRespResult with JsonConvert<NewsRespResult> {
 	String stat;
-	List<ToutiaoNewsRespData> data;
+	List<NewsRespResultData> data;
 }
 
-class ToutiaoNewsRespData with JsonConvert<ToutiaoNewsRespData> {
+class NewsRespResultData with JsonConvert<NewsRespResultData> {
 	String uniquekey;
 	String title;
 	String date;

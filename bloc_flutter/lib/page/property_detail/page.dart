@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:bloc_flutter/app_base/apluspro_page.dart';
-import 'package:bloc_flutter/model/resp/base_news_resp_entity.dart';
-import 'package:bloc_flutter/model/resp/toutiao_news_resp_entity.dart';
+import 'package:bloc_flutter/model/resp/news_resp_entity.dart';
 import 'package:bloc_flutter/page/property_detail/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -31,10 +30,11 @@ class _PropertyDetailState extends APlusState<PropertyDetailPage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: streamBuilder<ToutiaoRoot>(
+        child: streamBuilder<NewsRespEntity>(
           stream: widget.bloc.requestStreamController.stream,
           completedView: (data) {
             String title = data.result.data[0].title;
+            logFormat(data.reason);
             return Text(title);
           },
         ),
