@@ -15,7 +15,7 @@ abstract class APlusProPage<T extends APlusBloc> extends BlocWidget<T> {
 }
 
 /// todo: 应该把默认的StateView在这里实现
-abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
+abstract class APlusState<T extends APlusProPage> extends BlocState<T> with StateView {
   AlertDialogWidget alertDialog;
 
   @override
@@ -27,6 +27,22 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> {
   void dispose() {
     super.dispose();
     if (alertDialog != null) alertDialog.dispose();
+  }
+
+  StreamBuilder<StateBo<M>> streamBuilder<M>({
+    Key key,
+    StateBo<M> initialData,
+    Stream<StateBo<M>> stream,
+    @required Function(M data) completedView,
+  }) {
+    assert(completedView != null, 'completedView must not is null !');
+    return StateStreamBuilder.create(
+      key: key,
+      initialData: initialData,
+      stream: stream,
+      stateView: this,
+      completedView: completedView,
+    );
   }
 
   void dialog({
