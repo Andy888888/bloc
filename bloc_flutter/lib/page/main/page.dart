@@ -1,3 +1,4 @@
+import 'package:bloc_flutter/app_base/apluspro_bloc_page.dart';
 import 'package:bloc_flutter/page/property/bloc.dart';
 import 'package:bloc_flutter/page/property/page.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ import 'bloc.dart';
 ///
 /// @date 2020/7/14
 
-class MainPage extends BlocWidget<MainBloc> {
+class MainPage extends APlusProBlocPage<MainBloc> {
   @override
   String get title => 'MainPage';
 
@@ -22,18 +23,18 @@ class MainPage extends BlocWidget<MainBloc> {
 
   @override
   Widget widget(BuildContext context, MainBloc bloc) {
+    //todo: 初始化数据 抽取一个prepare
+    bloc.init();
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
       body: SafeArea(
         child: Center(
-//          child: StateStreamBuilder.create(stateView: this, completedView: (context) {}),
-          child: StreamBuilder<int>(
-            stream: bloc.stream,
-            initialData: 0,
-            builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-              return Text('你点击了我: ${snapshot.data} 下');
+          child: streamBuilder(
+            stream: bloc.controller.stream,
+            completedView: (context, data) {
+              return Text(data);
             },
           ),
         ),
@@ -43,7 +44,6 @@ class MainPage extends BlocWidget<MainBloc> {
         child: FloatingActionButton(
           child: Icon(Icons.navigate_next),
           onPressed: () {
-            bloc.plus();
             Views.launch(context, PropertyPage(PropertyBloc()));
           },
         ),

@@ -9,7 +9,7 @@ import 'package:stark/stark.dart';
 ///
 /// @date 2020/7/16
 class PropertyBloc extends APlusBloc {
-  StateStreamController<StateBo<String>> controller = StateStreamController<StateBo<String>>();
+  StateStreamController<String> controller = StateStreamController<String>();
 
   @override
   void dispose() {
