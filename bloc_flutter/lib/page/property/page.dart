@@ -34,7 +34,7 @@ class _PropertyState extends APlusState<PropertyPage> {
       ),
       body: streamBuilder<String>(
         stream: widget.bloc.controller.stream,
-        completedView: (data) {
+        completedView: (context, data) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

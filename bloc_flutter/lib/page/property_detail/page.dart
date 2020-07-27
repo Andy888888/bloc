@@ -32,7 +32,7 @@ class _PropertyDetailState extends APlusState<PropertyDetailPage> {
       body: Center(
         child: streamBuilder<NewsRespEntity>(
           stream: widget.bloc.requestStreamController.stream,
-          completedView: (data) {
+          completedView: (context, data) {
             String title = data.result.data[0].title;
             logFormat(data.reason);
             return Text(title);

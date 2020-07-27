@@ -1,7 +1,9 @@
-import 'package:bloc_flutter/bloc_provider/bloc_widget.dart';
 import 'package:bloc_flutter/page/property/bloc.dart';
 import 'package:bloc_flutter/page/property/page.dart';
 import 'package:flutter/material.dart';
+import 'package:stark/bloc_provider/bloc_provider.dart';
+import 'package:stark/network/network.dart';
+import 'package:stark/utils/logger.dart';
 import 'bloc.dart';
 
 /// @description Provider方式的页面
@@ -12,13 +14,20 @@ import 'bloc.dart';
 
 class MainPage extends BlocWidget<MainBloc> {
   @override
-  Widget createWidget(BuildContext context, MainBloc bloc) {
+  String get title => 'MainPage';
+
+  @override
+  bool get bindingObserver => true;
+
+  @override
+  Widget widget(BuildContext context, MainBloc bloc) {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
       body: SafeArea(
         child: Center(
+//          child: StateStreamBuilder.create(stateView: this, completedView: (context) {}),
           child: StreamBuilder<int>(
             stream: bloc.stream,
             initialData: 0,
@@ -42,6 +51,7 @@ class MainPage extends BlocWidget<MainBloc> {
   }
 
   @override
-  // TODO: implement title
-  String get title => 'MainPage';
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    logFormat('这里是新的生命周期：$state');
+  }
 }

@@ -33,7 +33,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> with Stat
     Key key,
     StateBo<M> initialData,
     Stream<StateBo<M>> stream,
-    @required Function(M data) completedView,
+    @required Function(BuildContext context, M data) completedView,
   }) {
     assert(completedView != null, 'completedView must not is null !');
     return StateStreamBuilder.create(
@@ -81,7 +81,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> with Stat
   }
 
   @override
-  Widget errorView(StateBo data) {
+  Widget errorView(BuildContext context, StateBo data) {
     return GestureDetector(
       child: Text('哎呀，出错了(${data.code})'),
       onTap: () => retry(),
@@ -89,7 +89,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> with Stat
   }
 
   @override
-  Widget loadingView() {
+  Widget loadingView(BuildContext context) {
     return SafeArea(
       child: Container(
         height: Screen.height(context),
@@ -102,7 +102,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> with Stat
   }
 
   @override
-  Widget networkPoorView(StateBo data) {
+  Widget networkPoorView(BuildContext context, StateBo data) {
     return GestureDetector(
       child: Text('网络差'),
       onTap: () => retry(),
@@ -110,7 +110,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> with Stat
   }
 
   @override
-  Widget noDataView() {
+  Widget noDataView(BuildContext context) {
     return SafeArea(
       child: Container(
         height: Screen.height(context),
@@ -123,7 +123,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> with Stat
   }
 
   @override
-  Widget noNetworkView(StateBo data) {
+  Widget noNetworkView(BuildContext context, StateBo data) {
     return GestureDetector(
       child: SafeArea(
         child: Container(
@@ -139,7 +139,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> with Stat
   }
 
   @override
-  Widget networkFailView(StateBo data) {
+  Widget networkFailView(BuildContext context, StateBo data) {
     return GestureDetector(
       child: SafeArea(
         child: Container(
@@ -155,7 +155,7 @@ abstract class APlusState<T extends APlusProPage> extends BlocState<T> with Stat
   }
 
   @override
-  Widget businessFail(StateBo data) {
+  Widget businessFail(BuildContext context, StateBo data) {
     return GestureDetector(
       child: Text('哎呀，业务处理出错了(${data.code})'),
       onTap: () => retry(),
