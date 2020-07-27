@@ -2,6 +2,7 @@ import 'package:bloc_flutter/page/property/bloc.dart';
 import 'package:bloc_flutter/page/property/page.dart';
 import 'package:flutter/material.dart';
 import 'package:stark/bloc_provider/bloc_provider.dart';
+import 'package:stark/common/views.dart';
 import 'package:stark/network/network.dart';
 import 'package:stark/utils/logger.dart';
 import 'bloc.dart';
@@ -43,7 +44,7 @@ class MainPage extends BlocWidget<MainBloc> {
           child: Icon(Icons.navigate_next),
           onPressed: () {
             bloc.plus();
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Scaffold(body: PropertyPage(PropertyBloc()))));
+            Views.launch(context, PropertyPage(PropertyBloc()));
           },
         ),
       ),
