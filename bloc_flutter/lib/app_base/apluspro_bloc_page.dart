@@ -5,6 +5,7 @@ import 'package:stark/common/screen.dart';
 import 'package:stark/network/state_bo.dart';
 import 'package:stark/network/stream/state_stream_builder.dart';
 import 'package:stark/network/view/state_view.dart';
+import 'package:stark/utils/logger.dart';
 
 /// @description 待描述
 ///
@@ -12,6 +13,11 @@ import 'package:stark/network/view/state_view.dart';
 ///
 /// @date 2020/7/27
 abstract class APlusProBlocPage<T extends BlocBase> extends BlocWidget<T> with StateView {
+  @override
+  void prepare(BuildContext context) {
+    logFormat('GrowingIO记录访问页面：$title');
+  }
+
   StreamBuilder<StateBo<M>> streamBuilder<M>({
     Key key,
     StateBo<M> initialData,
@@ -31,7 +37,7 @@ abstract class APlusProBlocPage<T extends BlocBase> extends BlocWidget<T> with S
   @override
   Widget errorView(BuildContext context, StateBo data) {
     return GestureDetector(
-      child: Text('哎呀，出错了(${data.code})'),
+      child: Center(child: Text('哎呀，出错了，点击重试(${data.code})')),
       onTap: () => retry(bloc(context)),
     );
   }
@@ -52,7 +58,7 @@ abstract class APlusProBlocPage<T extends BlocBase> extends BlocWidget<T> with S
   @override
   Widget networkPoorView(BuildContext context, StateBo data) {
     return GestureDetector(
-      child: Text('网络差'),
+      child: Center(child: Text('网络差')),
       onTap: () => retry(bloc(context)),
     );
   }
@@ -105,7 +111,7 @@ abstract class APlusProBlocPage<T extends BlocBase> extends BlocWidget<T> with S
   @override
   Widget businessFail(BuildContext context, StateBo data) {
     return GestureDetector(
-      child: Text('哎呀，业务处理出错了(${data.code})'),
+      child: Center(child: Text('哎呀，业务处理出错了，点击重试(${data.code})')),
       onTap: () => retry(bloc(context)),
     );
   }

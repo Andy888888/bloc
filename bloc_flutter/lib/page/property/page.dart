@@ -1,9 +1,12 @@
-import 'package:bloc_flutter/app_base/apluspro_page.dart';
 import 'package:bloc_flutter/page/property_detail/bloc.dart';
 import 'package:bloc_flutter/page/property_detail/page.dart';
 import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:stark/bloc_provider/bloc_provider.dart';
 import 'package:stark/stark.dart';
+import '../../app_base/apluspro_bloc_page.dart';
+import '../property_detail/bloc.dart';
+import '../property_detail/page.dart';
 import 'bloc.dart';
 
 /// @description 房源页面
@@ -12,28 +15,21 @@ import 'bloc.dart';
 ///
 /// @date 2020/7/16
 
-class PropertyPage extends APlusProPage<PropertyBloc> {
-  PropertyPage(PropertyBloc bloc) : super(bloc);
-
-  @override
-  BlocState<BlocWidget<PropertyBloc>> state() {
-    return _PropertyState();
-  }
-
+class PropertyPage extends APlusProBlocPage<PropertyBloc> {
   @override
   String get title => '房源列表';
-}
 
-class _PropertyState extends APlusState<PropertyPage> {
   @override
-  Widget build(BuildContext context) {
-    logFormat('${widget.title}执行一次Build');
+  bool get bindingObserver => true;
+
+  @override
+  Widget widget(BuildContext context, PropertyBloc bloc) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
       ),
       body: streamBuilder<String>(
-        stream: widget.bloc.controller.stream,
+        stream: bloc.controller.stream,
         completedView: (context, data) {
           return Center(
             child: Column(
@@ -52,51 +48,46 @@ class _PropertyState extends APlusState<PropertyPage> {
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     )),
                   ),
-                  onTap: () => launch(PropertyDetailPage(PropertyDetailBloc())),
+                  onTap: () => Views.launch(
+                      context, BlocProvider<PropertyDetailBloc>(child: PropertyDetailPage(), bloc: PropertyDetailBloc())),
                 ),
               ],
             ),
           );
         },
       ),
-//        child: StreamBuilder<StateBo<String>>(
-//          stream: widget.bloc.controller.stream,
-//          initialData: StateBo<String>(data: '您要的房源正在赶来的路上'),
-//          builder: (BuildContext context, AsyncSnapshot<StateBo<String>> snapshot) {
-//            log('状态：${snapshot.connectionState}');
-//            return Text(snapshot.data.data);
-//          },
-//        ),
-
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.favorite),
         onPressed: () {
-          dialog(
-            content: '这是一个弹框消息',
-            rightClick: () {
-              alertDialog.update(
-                AlertBuilder.create(
-                  context: context,
-                  content: '弹框不消失，修改弹框内容',
-                  rightClick: (dialog) {
-                    finish();
-                  },
-                ),
-              );
-            },
-            canUpdate: true,
-          );
+          _showDialog(context);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 
-  @override
-  bool isBindingObserver() => true;
+  void _showDialog(BuildContext context) {
+    AlertDialogWidget(
+      context: context,
+      content: '这是一个弹框消息',
+      rightClick: (dialog) {
+        dialog.update(
+          AlertBuilder.create(
+            context: context,
+            content: '弹框不消失，修改弹框内容',
+            rightClick: (dialog) {
+              dialog.dispose();
+              Views.finish(context);
+            },
+          ),
+        );
+      },
+      canUpdate: true,
+    );
+  }
 
   @override
-  viewDidLoad(callback) {
-    widget.bloc.requestProperties();
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    logFormat('$title生命周期：$state');
   }
 }
