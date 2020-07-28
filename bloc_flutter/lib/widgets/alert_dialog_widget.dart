@@ -48,11 +48,11 @@ class AlertDialogWidget {
   // final Function rightButtonResponse;
   // 左按钮响应
   final Function leftButtonResponse;
-  final Function leftClick;
+  final Function(AlertDialogWidget alertDialog) leftClick;
 
   // 右按钮响应
   final Function rightButtonResponse;
-  final Function rightClick;
+  final Function(AlertDialogWidget alertDialog) rightClick;
 
   // 障碍可解雇的
   final bool barrierDismissible;
@@ -377,7 +377,7 @@ class AlertDialogWidget {
       ),
       onTap: () {
         if (snapshot.data.leftClick != null) {
-          snapshot.data.leftClick();
+          snapshot.data.leftClick(this);
           return;
         }
 
@@ -416,7 +416,7 @@ class AlertDialogWidget {
       ),
       onTap: () {
         if (snapshot.data.rightClick != null) {
-          snapshot.data.rightClick();
+          snapshot.data.rightClick(this);
           return;
         }
 
@@ -468,7 +468,7 @@ class AlertDialogWidget {
           ),
           onTap: () {
             if (snapshot.data.leftClick != null) {
-              snapshot.data.leftClick();
+              snapshot.data.leftClick(this);
               return;
             }
 
@@ -504,7 +504,7 @@ class AlertDialogWidget {
           ),
           onTap: () {
             if (snapshot.data.rightClick != null) {
-              snapshot.data.rightClick();
+              snapshot.data.rightClick(this);
               return;
             }
             if (snapshot.data.isCompulsory == false) Navigator.of(snapshot.data.context).pop();
@@ -539,11 +539,11 @@ class AlertBuilder {
   // final Function rightButtonResponse;
   // 左按钮响应
   Function leftButtonResponse;
-  Function leftClick;
+  Function(AlertDialogWidget alertDialog) leftClick;
 
   // 右按钮响应
   Function rightButtonResponse;
-  Function rightClick;
+  Function(AlertDialogWidget alertDialog) rightClick;
 
   // 障碍可解雇的
   bool barrierDismissible;
@@ -584,83 +584,12 @@ class AlertBuilder {
     this.rightClick,
     this.barrierDismissible,
     this.isCompulsory,
-  );
-}
-
-// ----------------------------
-
-class AlertDialogWidget3 {
-  // 上下文
-  final BuildContext context;
-
-  // 标题
-  final String title;
-
-  // 内容
-  final String content;
-
-  // 按钮内容
-  final List<String> buttonTextList;
-
-  // 按钮回调
-  final Function(int index, String text) response;
-
-  AlertDialogWidget3({
-    @required this.context,
-    this.title,
-    this.content,
-    @required this.buttonTextList,
-    @required this.response,
-  }) {
-    if (buttonTextList == null || buttonTextList.length == 0) {
-      return;
+  ) {
+    if (leftClick != null) {
+      leftButtonResponse = leftClick;
     }
-    showDialog<bool>(
-      context: context,
-      builder: (context) {
-        return CupertinoAlertDialog(
-          title: title == null
-              ? null
-              : Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 17,
-                  ),
-                ),
-          content: content == null
-              ? null
-              : Text(
-                  content,
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
-                ),
-          actions: buttonWidget(),
-        );
-      },
-    );
-  }
-
-  buttonWidget() {
-    List list = List<CupertinoDialogAction>();
-    for (int i = 0; i < buttonTextList.length; i++) {
-      CupertinoDialogAction cda = CupertinoDialogAction(
-        child: Text(
-          buttonTextList[i] ?? '',
-          style: TextStyle(
-            fontSize: 17,
-          ),
-        ),
-        onPressed: () {
-          Navigator.of(context).pop();
-          if (response != null) {
-            response(i, buttonTextList[i] ?? '');
-          }
-        },
-      );
-      list.add(cda);
+    if (rightClick != null) {
+      rightButtonResponse = rightClick;
     }
-
-    return list;
   }
 }

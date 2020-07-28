@@ -78,7 +78,7 @@ class _PropertyState extends APlusState<PropertyPage> {
                 AlertBuilder.create(
                   context: context,
                   content: '弹框不消失，修改弹框内容',
-                  rightClick: () {
+                  rightClick: (dialog) {
                     finish();
                   },
                 ),
