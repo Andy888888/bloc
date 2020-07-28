@@ -2,9 +2,7 @@ import 'package:bloc_flutter/app_base/apluspro_bloc_page.dart';
 import 'package:bloc_flutter/page/property/bloc.dart';
 import 'package:bloc_flutter/page/property/page.dart';
 import 'package:flutter/material.dart';
-import 'package:stark/bloc_provider/bloc_provider.dart';
 import 'package:stark/common/views.dart';
-import 'package:stark/network/network.dart';
 import 'package:stark/utils/logger.dart';
 import 'bloc.dart';
 
@@ -23,8 +21,6 @@ class MainPage extends APlusProBlocPage<MainBloc> {
 
   @override
   Widget widget(BuildContext context, MainBloc bloc) {
-    //todo: 初始化数据 抽取一个prepare
-    bloc.init();
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
