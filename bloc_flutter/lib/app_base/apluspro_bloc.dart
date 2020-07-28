@@ -1,4 +1,4 @@
-import 'package:stark/bloc_provider/bloc.dart';
+import 'package:stark/bloc/bloc.dart';
 import 'package:stark/utils/logger.dart';
 
 /// @description APlusProBloc

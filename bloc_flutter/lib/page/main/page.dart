@@ -1,8 +1,8 @@
 import 'package:bloc_flutter/app_base/apluspro_bloc_page.dart';
-import 'package:bloc_flutter/app_base/apluspro_bloc_provider.dart';
 import 'package:bloc_flutter/page/property/bloc.dart';
 import 'package:bloc_flutter/page/property/page.dart';
 import 'package:flutter/material.dart';
+import 'package:stark/bloc/bloc.dart';
 import 'package:stark/common/views.dart';
 import 'package:stark/utils/logger.dart';
 import '../property/bloc.dart';
@@ -42,7 +42,7 @@ class MainPage extends APlusProBlocPage<MainBloc> {
         child: FloatingActionButton(
           child: Icon(Icons.navigate_next),
           onPressed: () {
-            Views.launch(context, APlusProBlocProvider<PropertyBloc>(child: PropertyPage(), bloc: PropertyBloc()));
+            Views.launch(context, BlocProvider<PropertyBloc>(child: PropertyPage(), bloc: PropertyBloc()));
           },
         ),
       ),

@@ -1,6 +1,5 @@
-import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:stark/bloc_provider/bloc_provider.dart';
+import 'package:stark/bloc/bloc.dart';
 import 'package:stark/common/screen.dart';
 import 'package:stark/network/state_bo.dart';
 import 'package:stark/network/stream/state_stream_builder.dart';

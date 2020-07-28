@@ -250,7 +250,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "61ebb7851b387c9f0566e46816dd0a4bb49fa725"
+      resolved-ref: "4a136b3507a5e4de69893fb6b98c3c780f9466a0"
       url: "https://github.com/flutter-ywq/stark.git"
     source: git
     version: "0.0.1"

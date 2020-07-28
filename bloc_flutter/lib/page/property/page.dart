@@ -1,4 +1,3 @@
-import 'package:bloc_flutter/app_base/apluspro_bloc_provider.dart';
 import 'package:bloc_flutter/page/property_detail/bloc.dart';
 import 'package:bloc_flutter/page/property_detail/page.dart';
 import 'package:bloc_flutter/widgets/alert_dialog_widget.dart';
@@ -49,7 +48,7 @@ class PropertyPage extends APlusProBlocPage<PropertyBloc> {
                     )),
                   ),
                   onTap: () => Views.launch(
-                      context, APlusProBlocProvider<PropertyDetailBloc>(child: PropertyDetailPage(), bloc: PropertyDetailBloc())),
+                      context, BlocProvider<PropertyDetailBloc>(child: PropertyDetailPage(), bloc: PropertyDetailBloc())),
                 ),
               ],
             ),
