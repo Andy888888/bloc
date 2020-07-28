@@ -9,7 +9,7 @@ import 'package:stark/stark.dart';
 /// @author 燕文强
 ///
 /// @date 2020/7/21
-class RequestWithState<S, T> extends AbsRequestWithState<S, T> {
+class APlusProRequestWithState<S, T> extends AbsRequestWithState<S, T> {
   @override
   void send(
     Api<S, T> api, {
@@ -30,7 +30,7 @@ class RequestWithState<S, T> extends AbsRequestWithState<S, T> {
       onFail: (response) {
         if (onCompleted != null) onCompleted();
         int code = response.metadata.data['Flag'];
-        String message = response.metadata.data['message'];
+        String message = response.metadata.data['Message'];
         onFail(StateBo.businessFail(code: code, message: message));
       },
       onError: (error) {
@@ -58,7 +58,7 @@ class RequestWithState<S, T> extends AbsRequestWithState<S, T> {
 }
 
 test() {
-  RequestWithState<String, _ResponseModel>().send(
+  APlusProRequestWithState<String, _ResponseModel>().send(
     _MyApi.webContent(),
     onSuccess: (data) {
       log(data.data.result);
@@ -80,6 +80,7 @@ class _MyApi<S, T> extends Api<S, T> {
   bool state(dynamic obj) {
     return obj['code'] == 200;
   }
+
   static _MyApi<String, _ResponseModel> webContent() => _MyApi<String, _ResponseModel>()
     ..method = Method.GET
     ..dataConvert = (data) {
