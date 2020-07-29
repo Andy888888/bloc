@@ -1,7 +1,7 @@
-import 'dart:async';
 import 'package:bloc_flutter/app_base/apluspro_bloc.dart';
 import 'package:stark/network/state_bo.dart';
 import 'package:stark/network/utils/state_stream_controller.dart';
+import 'package:stark/stark.dart';
 
 /// @description MainBloc
 ///
@@ -22,7 +22,7 @@ class MainBloc extends APlusProBloc {
   @override
   void retry() {
     super.retry();
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration(seconds: 2), () {
       controller.add(StateBo<String>('获取到8条未读消息'));
 //      controller.add(StateBo.noData());
 //      controller.add(StateBo.noNetwork());
@@ -32,8 +32,6 @@ class MainBloc extends APlusProBloc {
   @override
   void dispose() {
     super.dispose();
-    super.dispose();
     controller.close();
   }
-
 }

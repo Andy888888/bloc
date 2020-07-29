@@ -24,7 +24,7 @@ abstract class APlusProBlocPage<T extends BlocBase> extends BlocWidget<T> with S
     @required Function(BuildContext context, M data) completedView,
   }) {
     assert(completedView != null, 'completedView must not is null !');
-    return StateStreamBuilder.create(
+    return StateStreamBuilder.create<M>(
       key: key,
       initialData: initialData,
       stream: stream,

@@ -27,15 +27,14 @@ class MainPage extends APlusProBlocPage<MainBloc> {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: SafeArea(
-        child: Center(
-          child: streamBuilder(
-            stream: bloc.controller.stream,
-            completedView: (context, data) {
-              return Text(data);
-            },
-          ),
-        ),
+      body: streamBuilder<String>(
+        stream: bloc.controller.stream,
+        completedView: (context, data) {
+          logFormat('得到数据了$data');
+          return Center(
+            child: Text(data),
+          );
+        },
       ),
       floatingActionButton: Container(
         margin: EdgeInsets.only(bottom: 80, right: 40),
