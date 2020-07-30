@@ -14,6 +14,7 @@ class MainBloc extends APlusProBloc {
   @override
   void prepare() {
     super.prepare();
+    logDisable();
     Future.delayed(Duration(seconds: 2), () {
       controller.add(StateBo.networkFail());
     });
