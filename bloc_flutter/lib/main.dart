@@ -6,12 +6,10 @@ import 'package:stark/stark.dart';
 import 'page/main/bloc.dart';
 import 'page/main/page.dart';
 
-void main() => runApp(App());
+void main() => runApp(App().main());
 
-class App extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    logDisable();
+class App {
+  MaterialApp main() {
     return MaterialApp(
       home: BlocProvider<MainBloc>(bloc: MainBloc(), child: MainPage()),
     );
