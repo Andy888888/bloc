@@ -23,6 +23,11 @@ class PropertyPage extends APlusProBlocPage<PropertyBloc> {
 
   @override
   Widget widget(BuildContext context, PropertyBloc bloc) {
+    List<String> menu = List<String>();
+    menu.add('复制');
+    menu.add('粘贴');
+    menu.add('全选');
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -34,22 +39,11 @@ class PropertyPage extends APlusProBlocPage<PropertyBloc> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                PopMenu(menu, itemClick: (context, index) {
+                  Views.launch(
+                      context, BlocProvider<PropertyDetailBloc>(child: PropertyDetailPage(), bloc: PropertyDetailBloc()));
+                }),
                 Text(data),
-                GestureDetector(
-                  child: Container(
-                    color: Colors.blue,
-                    width: Screen.width(context),
-                    height: 80,
-                    margin: EdgeInsets.only(top: 30),
-                    child: Center(
-                        child: Text(
-                      '跳转详情页',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    )),
-                  ),
-                  onTap: () => Views.launch(
-                      context, BlocProvider<PropertyDetailBloc>(child: PropertyDetailPage(), bloc: PropertyDetailBloc())),
-                ),
               ],
             ),
           );
@@ -88,5 +82,66 @@ class PropertyPage extends APlusProBlocPage<PropertyBloc> {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     logFormat('$title生命周期：$state');
+  }
+}
+
+class PopMenu extends StatelessWidget {
+  final List<String> menu;
+  final Function(BuildContext context, int index) itemClick;
+
+  int get count => menu.length;
+
+  PopMenu(this.menu, {this.itemClick});
+
+  @override
+  Widget build(BuildContext context) {
+    EdgeInsetsGeometry padding = EdgeInsets.only(left: 10, right: 10, top: 6, bottom: 6);
+
+    return Container(
+      height: 50,
+      width: 145,
+      alignment: Alignment.center,
+//      color: Colors.amber,
+      child: ListView.separated(
+        itemCount: count,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (BuildContext context, int index) {
+          BoxDecoration boxDecoration;
+          if (index == 0) {
+            boxDecoration = BoxDecoration(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(5), bottomLeft: Radius.circular(5)),
+              color: Colors.black,
+            );
+          } else if (index == count - 1) {
+            boxDecoration = BoxDecoration(
+              borderRadius: BorderRadius.only(topRight: Radius.circular(5), bottomRight: Radius.circular(5)),
+              color: Colors.black,
+            );
+          } else {
+            boxDecoration = null;
+          }
+
+          return GestureDetector(
+            child: Center(
+              child: Container(
+                decoration: boxDecoration,
+                color: boxDecoration == null ? Colors.black : null,
+                padding: padding,
+                child: Text(menu[index], style: TextStyle(color: Colors.white)),
+              ),
+            ),
+            onTap: () {
+              itemClick(context, index);
+            },
+            onTapUp: (TapUpDetails details) {
+              print('x:${details.globalPosition.dx},y:${details.globalPosition.dy}');
+            },
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return Container(color: Colors.white, width: 0.5);
+        },
+      ),
+    );
   }
 }
